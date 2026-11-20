@@ -58,7 +58,7 @@
     return window.AppCatalog;
   }
 
-  const APP_VERSION = 'v5.0_clean_empty_slate';
+  const APP_VERSION = 'v5.1_production_ready';
 
   function initData() {
     const catalog = getCatalog();
@@ -78,12 +78,14 @@
     if (savedMaterials !== null) {
       try {
         const parsed = JSON.parse(savedMaterials);
-        State.materials = Array.isArray(parsed) ? parsed : [];
+        State.materials = (Array.isArray(parsed) && parsed.length > 0)
+          ? parsed
+          : (catalog && catalog.DEFAULT_RAW_MATERIALS ? catalog.DEFAULT_RAW_MATERIALS.map(m => Object.assign({}, m)) : []);
       } catch (e) {
-        State.materials = [];
+        State.materials = catalog && catalog.DEFAULT_RAW_MATERIALS ? catalog.DEFAULT_RAW_MATERIALS.map(m => Object.assign({}, m)) : [];
       }
     } else {
-      State.materials = [];
+      State.materials = catalog && catalog.DEFAULT_RAW_MATERIALS ? catalog.DEFAULT_RAW_MATERIALS.map(m => Object.assign({}, m)) : [];
     }
 
     // 2. Retseptlar bazasini yuklash
@@ -91,12 +93,14 @@
     if (savedRecipes !== null) {
       try {
         const parsed = JSON.parse(savedRecipes);
-        State.recipes = Array.isArray(parsed) ? parsed : [];
+        State.recipes = (Array.isArray(parsed) && parsed.length > 0)
+          ? parsed
+          : (catalog && catalog.DEFAULT_RECIPES ? catalog.DEFAULT_RECIPES.map(r => catalog.helpers.cloneDeep(r)) : []);
       } catch (e) {
-        State.recipes = [];
+        State.recipes = catalog && catalog.DEFAULT_RECIPES ? catalog.DEFAULT_RECIPES.map(r => catalog.helpers.cloneDeep(r)) : [];
       }
     } else {
-      State.recipes = [];
+      State.recipes = catalog && catalog.DEFAULT_RECIPES ? catalog.DEFAULT_RECIPES.map(r => catalog.helpers.cloneDeep(r)) : [];
     }
 
     // 3. Tanlangan retseptni yuklash
@@ -139,9 +143,10 @@
       localStorage.setItem(STORAGE_KEYS.GEMINI_API_KEY, savedApiKey);
     }
 
-    State.materials = [];
-    State.recipes = [];
-    State.activeRecipeId = '';
+    const catalog = getCatalog();
+    State.materials = catalog && catalog.DEFAULT_RAW_MATERIALS ? catalog.DEFAULT_RAW_MATERIALS.map(m => Object.assign({}, m)) : [];
+    State.recipes = catalog && catalog.DEFAULT_RECIPES ? catalog.DEFAULT_RECIPES.map(r => catalog.helpers.cloneDeep(r)) : [];
+    State.activeRecipeId = State.recipes.length > 0 ? State.recipes[0].id : '';
     State.batchKg = 10.0;
     State.markupPercent = 40.0;
     State.currentCalculations = null;
@@ -149,7 +154,7 @@
     saveState();
     syncUIWithState();
     renderAll();
-    showToast("Barcha ma'lumotlar butunlay tozalandi! Baza bo'sh holatda.", "info");
+    showToast("Ma'lumotlar standart holatga (zavod sozlamalariga) qaytarildi!", "info");
   }
 
   // ==========================================================================
@@ -221,17 +226,24 @@
       const mat = materialsMap[ing.materialId] || null;
       const unitPrice = mat ? (Number(mat.pricePerUnit) || 0) : (Number(ing.unitPrice) || 0);
       
+      const rawUnit = (ing.unit || (mat && mat.unit) || 'kg').toLowerCase().trim();
+      const isGram = (rawUnit === 'gr' || rawUnit === 'g' || rawUnit === 'gram' || rawUnit === 'gramm');
+
       const gross = (Number(ing.grossWeight) || 0) * scale;
       const wastePercent = Number(ing.wastePercent) || 0;
       
       // Netto = Brutto * (1 - waste / 100)
       const wp = Math.max(0, Math.min(99.9, wastePercent));
       const net = gross * (1 - wp / 100);
-      const cost = Math.round(gross * unitPrice);
+
+      // Agar o'lchov birligi gramm bo'lsa, tannarx va umumiy vaznga kg da (1000 ga bo'lib) qo'shiladi
+      const effectiveGrossKg = isGram ? (gross / 1000) : gross;
+      const effectiveNetKg = isGram ? (net / 1000) : net;
+      const cost = Math.round(effectiveGrossKg * unitPrice);
 
       rawMaterialsTotalCost += cost;
-      totalGrossWeight += gross;
-      totalNetWeight += net;
+      totalGrossWeight += effectiveGrossKg;
+      totalNetWeight += effectiveNetKg;
 
       return {
         index: idx,
@@ -278,13 +290,13 @@
         containerUnitCost = 0;
       } else {
         const containerMat = materialsMap[pack.containerMaterialId];
-        containerUnitCost = containerMat ? containerMat.pricePerUnit : 900;
+        containerUnitCost = containerMat ? containerMat.pricePerUnit : 1100;
       }
     }
 
     let labelUnitCost = Number(pack.labelUnitCost);
     if (isNaN(labelUnitCost) || labelUnitCost < 0) {
-      if (pack.defaultType === 'bulk') {
+      if (pack.defaultType === 'bulk' || pack.includeLabel === false) {
         labelUnitCost = 0;
       } else {
         const labelMat = materialsMap[pack.labelMaterialId];
@@ -292,9 +304,20 @@
       }
     }
 
+    let bagUnitCost = Number(pack.bagUnitCost);
+    if (isNaN(bagUnitCost) || bagUnitCost < 0) {
+      if (pack.defaultType === 'bulk' || pack.includeBag === false) {
+        bagUnitCost = 0;
+      } else {
+        const bagMat = materialsMap[pack.bagMaterialId];
+        bagUnitCost = bagMat ? bagMat.pricePerUnit : 100;
+      }
+    }
+
     const containersCost = isBulk ? 0 : (containersNeeded * containerUnitCost);
     const labelsCost = (isBulk || pack.includeLabel === false) ? 0 : (containersNeeded * labelUnitCost);
-    const packagingTotalCost = containersCost + labelsCost;
+    const bagsCost = (isBulk || pack.includeBag === false) ? 0 : (containersNeeded * bagUnitCost);
+    const packagingTotalCost = containersCost + labelsCost + bagsCost;
 
     // 5. Jami tannarx
     const totalBatchCost = rawMaterialsTotalCost + operationalTotalCost + packagingTotalCost;
@@ -355,8 +378,10 @@
         containersNeeded,
         containerUnitCost,
         labelUnitCost,
+        bagUnitCost,
         containersCost,
         labelsCost,
+        bagsCost,
         packagingTotalCost
       },
 
@@ -440,7 +465,25 @@
 
   function renderActiveRecipeMetaInputs() {
     const recipe = getActiveRecipe();
-    if (!recipe) return;
+    if (!recipe) {
+      const batchInput = document.getElementById('batch-weight-input');
+      if (batchInput) batchInput.value = '10';
+      const inputLabor = document.getElementById('input-labor-rate');
+      const inputUtility = document.getElementById('input-utility-cost');
+      const inputTransport = document.getElementById('input-transport-cost');
+      const inputDepr = document.getElementById('input-depreciation-cost');
+      const inputOverhead = document.getElementById('input-overhead-cost');
+      const inputPackCost = document.getElementById('input-packaging-unit-cost');
+      const inputLabelCost = document.getElementById('input-label-cost');
+      if (inputLabor) inputLabor.value = '0';
+      if (inputUtility) inputUtility.value = '0';
+      if (inputTransport) inputTransport.value = '0';
+      if (inputDepr) inputDepr.value = '0';
+      if (inputOverhead) inputOverhead.value = '0';
+      if (inputPackCost) inputPackCost.value = '0';
+      if (inputLabelCost) inputLabelCost.value = '0';
+      return;
+    }
 
     // Partiya hajmi
     const batchInput = document.getElementById('batch-weight-input');
@@ -1302,8 +1345,11 @@
         ing.grossWeight = gross;
         ing.unitPrice = unitPrice;
 
-        const cost = Math.round(gross * unitPrice);
-        totalGross += gross;
+        const rawUnit = (ing.unit || (mat && mat.unit) || 'kg').toLowerCase().trim();
+        const isGram = (rawUnit === 'gr' || rawUnit === 'g' || rawUnit === 'gram' || rawUnit === 'gramm');
+        const effectiveGrossKg = isGram ? (gross / 1000) : gross;
+        const cost = Math.round(effectiveGrossKg * unitPrice);
+        totalGross += effectiveGrossKg;
         totalCost += cost;
 
         const tr = document.createElement('tr');
@@ -1653,13 +1699,14 @@
       }
 
       // 2. Muammolarni bartaraf etish (Troubleshooting)
-      for (const p of kb.troubleshooting) {
+      for (const p of (kb.troubleshooting || [])) {
+        const pid = p.id || '';
         if (
-          (p.id === 'problem_water' && (q.includes('suv') || q.includes('oqib') || q.includes('suyuq') || q.includes('suvlan'))) ||
-          (p.id === 'problem_sour' && (q.includes('achi') || q.includes('aynish') || q.includes('buzil') || q.includes('gazlan'))) ||
-          (p.id === 'problem_soft' && (q.includes('yumsh') || q.includes('qarsildoq') || q.includes('shirillash'))) ||
-          (p.id === 'problem_salty' && (q.includes('sho\'r') || q.includes('shor') || q.includes('tuzli'))) ||
-          (p.id === 'problem_spicy' && (q.includes('achchiq') || q.includes('kuyish') || q.includes('qalampir')))
+          ((pid === 'problem_water' || pid.includes('water')) && (q.includes('suv') || q.includes('oqib') || q.includes('suyuq') || q.includes('suvlan'))) ||
+          ((pid === 'problem_sour_spoil' || pid.includes('sour')) && (q.includes('achi') || q.includes('aynish') || q.includes('buzil') || q.includes('gazlan'))) ||
+          ((pid === 'problem_soft_carrot' || pid.includes('soft')) && (q.includes('yumsh') || q.includes('qarsildoq') || q.includes('shirillash'))) ||
+          ((pid === 'problem_too_salty' || pid.includes('salty')) && (q.includes('sho\'r') || q.includes('shor') || q.includes('tuzli'))) ||
+          ((pid === 'problem_too_spicy' || pid.includes('spicy')) && (q.includes('achchiq') || q.includes('kuyish') || q.includes('qalampir')))
         ) {
           return {
             text: `⚠️ **Muammo**: ${p.problemUz}\n\n` +
@@ -1719,9 +1766,9 @@
 
       // 5. Chiqindi me'yorlari
       if (q.includes('chiqindi') || q.includes('tozalash') || q.includes('foiz') || q.includes('otxod')) {
-        const wasteText = kb.wasteStandards
+        const wasteText = (kb.wasteStandards || [])
           .slice(0, 6)
-          .map(w => `• **${w.material}**: tozalashdagi o'rtacha chiqindi ${w.standardPercent}% (${w.notes})`)
+          .map(w => `• **${w.rawMaterial || w.material || 'Xomashyo'}**: tozalashdagi o'rtacha chiqindi ${w.standardPercent}% (${w.explanationUz || w.notes || ''})`)
           .join('\n');
 
         return {
@@ -2159,11 +2206,11 @@
         const recipe = getActiveRecipe();
         if (!recipe || !recipe.ingredients || !recipe.ingredients[idx]) return;
 
-        const val = parseNumberInput(input.value, 0);
+        const val = Math.max(0, parseNumberInput(input.value, 0));
         const scale = State.batchKg / (recipe.batchOutputKg || 10.0);
 
         if (field === 'netWeight') {
-          const baseNetto = val / scale;
+          const baseNetto = val / (scale > 0 ? scale : 1.0);
           const waste = recipe.ingredients[idx].wastePercent || 0;
           const wp = Math.max(0, Math.min(99.9, waste));
           const baseGross = baseNetto / (1 - wp / 100);
@@ -2619,7 +2666,7 @@
 
         const idx = parseInt(input.getAttribute('data-idx'), 10);
         const field = input.getAttribute('data-field');
-        const val = parseNumberInput(input.value, 0);
+        const val = Math.max(0, parseNumberInput(input.value, 0));
 
         const ing = RecipeBuilderState.ingredients[idx];
         if (ing) {
@@ -2633,11 +2680,15 @@
           const mat = materialsMap[ing.materialId];
           const unitPrice = mat ? (Number(mat.pricePerUnit) || 0) : (Number(ing.unitPrice) || 0);
           const wp = Math.max(0, Math.min(99.9, Number(ing.wastePercent) || 0));
-          const net = Number(ing.netWeight) || 0;
+          const net = Math.max(0, Number(ing.netWeight) || 0);
           const gross = Number((net / (1 - wp / 100)).toFixed(4));
           ing.grossWeight = gross;
           ing.unitPrice = unitPrice;
-          const cost = Math.round(gross * unitPrice);
+
+          const rawUnit = (ing.unit || (mat && mat.unit) || 'kg').toLowerCase().trim();
+          const isGram = (rawUnit === 'gr' || rawUnit === 'g' || rawUnit === 'gram' || rawUnit === 'gramm');
+          const effectiveGrossKg = isGram ? (gross / 1000) : gross;
+          const cost = Math.round(effectiveGrossKg * unitPrice);
 
           // Jadval qatorini joyida yangilash
           const row = input.closest('tr');
@@ -2654,10 +2705,13 @@
             const m = materialsMap[item.materialId];
             const up = m ? (Number(m.pricePerUnit) || 0) : (Number(item.unitPrice) || 0);
             const w = Math.max(0, Math.min(99.9, Number(item.wastePercent) || 0));
-            const n = Number(item.netWeight) || 0;
+            const n = Math.max(0, Number(item.netWeight) || 0);
             const g = Number((n / (1 - w / 100)).toFixed(4));
-            totalGross += g;
-            totalCost += Math.round(g * up);
+            const itemUnit = (item.unit || (m && m.unit) || 'kg').toLowerCase().trim();
+            const itemIsGram = (itemUnit === 'gr' || itemUnit === 'g' || itemUnit === 'gram' || itemUnit === 'gramm');
+            const gKg = itemIsGram ? (g / 1000) : g;
+            totalGross += gKg;
+            totalCost += Math.round(gKg * up);
           });
 
           const footerBrutto = document.getElementById('rb-footer-brutto');
@@ -2993,6 +3047,13 @@
   function deleteMaterial(matId) {
     const mat = State.materials.find(m => m.id === matId);
     if (!mat) return;
+
+    // Ushbu xomashyo biron-bir retseptda ishlatilayotganini tekshirish
+    const usedInRecipes = State.recipes.filter(r => (r.ingredients || []).some(i => i.materialId === matId));
+    if (usedInRecipes.length > 0) {
+      showToast(`"${mat.nameUz}" ${usedInRecipes.length} ta retseptda ishlatilmoqda! Uni o'chirishdan oldin retseptlardan olib tashlang.`, "warning", 5000);
+      return;
+    }
 
     confirmDialog("Xomashyoni o'chirish", `Haqiqatan ham "${mat.nameUz}" xomashyosini bazadan butunlay o'chirmoqchimisiz?`, () => {
       State.materials = State.materials.filter(m => m.id !== matId);

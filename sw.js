@@ -3,7 +3,7 @@
  * Offline rejim va PWA keshini boshqarish
  */
 
-const CACHE_NAME = 'salat-calc-pwa-v1.0';
+const CACHE_NAME = 'salat-calc-pwa-v2.0';
 
 const PRECACHE_ASSETS = [
   './',
@@ -50,15 +50,16 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const request = event.request;
 
-  // Faqat GET so'rovlarni keshlaymiz
+  // Faqat HTTP/HTTPS va GET so'rovlarni keshlaymiz (chrome-extension:// va boshqa sxemalarni o'tkazib yuboramiz)
   if (request.method !== 'GET') return;
+  if (!request.url.startsWith('http://') && !request.url.startsWith('https://')) return;
 
   event.respondWith(
-    caches.match(request).then((cachedResponse) => {
+    caches.match(request, { ignoreSearch: true }).then((cachedResponse) => {
       if (cachedResponse) {
-        // Fon orqali keshni yangilash
+        // Fon orqali keshni yangilash (Stale-while-revalidate)
         fetch(request).then((networkResponse) => {
-          if (networkResponse && networkResponse.status === 200) {
+          if (networkResponse && (networkResponse.status === 200 || networkResponse.type === 'opaque')) {
             caches.open(CACHE_NAME).then((cache) => {
               cache.put(request, networkResponse.clone());
             });
@@ -69,9 +70,9 @@ self.addEventListener('fetch', (event) => {
         return cachedResponse;
       }
 
-      // Keshda bo'lmasa, tarmoqdan yuklab keshga saqlash
+      // Keshda bo'lmasa, tarmoqdan yuklab keshga saqlash (Opaque CDN javoblarini ham qabul qiladi)
       return fetch(request).then((networkResponse) => {
-        if (!networkResponse || networkResponse.status !== 200 || networkResponse.type === 'error') {
+        if (!networkResponse || (networkResponse.status !== 200 && networkResponse.type !== 'opaque') || networkResponse.type === 'error') {
           return networkResponse;
         }
 
@@ -84,7 +85,7 @@ self.addEventListener('fetch', (event) => {
       }).catch(() => {
         // Agar HTML so'rov bo'lsa va tarmoq bo'lmasa, keshdagi index.html ni qaytarish
         if (request.headers.get('accept') && request.headers.get('accept').includes('text/html')) {
-          return caches.match('./index.html');
+          return caches.match('./index.html', { ignoreSearch: true });
         }
       });
     })

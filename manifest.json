@@ -7,7 +7,7 @@
   "display": "standalone",
   "background_color": "#f8fafc",
   "theme_color": "#16a34a",
-  "orientation": "portrait-primary",
+  "orientation": "any",
   "categories": ["business", "food", "productivity", "utilities"],
   "lang": "uz",
   "icons": [
@@ -28,6 +28,22 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Kalkulyator va Retseptlar",
+      "short_name": "Kalkulyator",
+      "description": "Salat tannarxini hisoblash",
+      "url": "./index.html?tab=tab-kalkulyator",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Texnologik Xarita",
+      "short_name": "Texkarta",
+      "description": "Texkarta ko'rish va chop etish",
+      "url": "./index.html?tab=tab-texkarta",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
     }
   ]
 }

@@ -2,11 +2,13 @@
 <html lang="uz">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Koreys Salatlari Tannarx Kalkulyatori | Себестоимость корейских салатов</title>
   
   <!-- PWA & Mobile Meta Tags -->
   <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="shortcut icon" href="icons/icon-192.png">
   <meta name="theme-color" content="#16a34a">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -66,18 +68,18 @@
        YUQORI HEADER (NAVBAR)
        ======================================================================== -->
   <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm no-print">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         
         <!-- Logo va Sarlavha -->
-        <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-red-500 flex items-center justify-center text-white shadow-md shadow-amber-500/20">
-            <i class="fa-solid fa-carrot text-xl"></i>
+        <div class="flex items-center space-x-2 sm:space-x-3 min-w-0">
+          <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-gradient-to-tr from-amber-500 to-red-500 flex items-center justify-center text-white shadow-md shadow-amber-500/20 shrink-0">
+            <i class="fa-solid fa-carrot text-base sm:text-xl"></i>
           </div>
-          <div>
-            <div class="flex items-center space-x-2">
-              <h1 class="text-lg font-bold text-slate-900 leading-tight">Koreys Salatlari Tannarxi</h1>
-              <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-amber-100 text-amber-800">
+          <div class="min-w-0">
+            <div class="flex items-center space-x-1.5 sm:space-x-2">
+              <h1 class="text-xs sm:text-lg font-bold text-slate-900 leading-tight truncate sm:overflow-visible">Koreys Salatlari Tannarxi</h1>
+              <span class="hidden sm:inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-amber-100 text-amber-800 shrink-0">
                 Себестоимость
               </span>
             </div>
@@ -86,30 +88,30 @@
         </div>
 
         <!-- O'ng tomondagi tezkor tugmalar va valyuta belgisi -->
-        <div class="flex items-center space-x-2 sm:space-x-3">
-          <div class="hidden md:flex items-center bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-700">
+        <div class="flex items-center space-x-1 sm:space-x-2 shrink-0">
+          <div class="hidden lg:flex items-center bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-700">
             <i class="fa-solid fa-coins text-amber-500 mr-1.5"></i>
             <span>Valyuta: UZS (so'm)</span>
           </div>
 
-          <button id="btn-pwa-install" title="Ilovani telefonga yoki kompyuterga o'rnatish" class="hidden inline-flex items-center px-3 py-1.5 border border-emerald-500 text-xs sm:text-sm font-semibold rounded-lg text-white bg-emerald-600 hover:bg-emerald-700 transition shadow-sm animate-pulse">
-            <i class="fa-solid fa-download sm:mr-1.5"></i>
-            <span class="hidden sm:inline">Ilovani o'rnatish</span>
+          <button id="btn-pwa-install" title="Ilovani telefonga yoki kompyuterga o'rnatish" class="hidden inline-flex items-center justify-center min-h-[44px] min-w-[44px] px-2.5 sm:px-3.5 py-2 border border-emerald-500 text-xs sm:text-sm font-semibold rounded-lg text-white bg-emerald-600 hover:bg-emerald-700 transition shadow-sm animate-pulse">
+            <i class="fa-solid fa-download lg:mr-1.5 text-sm"></i>
+            <span class="hidden lg:inline">Ilovani o'rnatish</span>
           </button>
 
-          <button id="btn-export-excel" title="Excel formatida saqlash" class="inline-flex items-center px-3 py-1.5 border border-slate-200 text-xs sm:text-sm font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 transition shadow-sm">
-            <i class="fa-solid fa-file-excel text-emerald-600 sm:mr-1.5"></i>
-            <span class="hidden sm:inline">Excelga yuklash</span>
+          <button id="btn-export-excel" title="Excel formatida saqlash" class="inline-flex items-center justify-center min-h-[44px] min-w-[44px] px-2.5 sm:px-3 py-2 border border-slate-200 text-xs sm:text-sm font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 transition shadow-sm">
+            <i class="fa-solid fa-file-excel text-emerald-600 lg:mr-1.5 text-sm"></i>
+            <span class="hidden lg:inline">Excelga yuklash</span>
           </button>
 
-          <button id="btn-print-texkarta" title="Chop etish yoki PDF saqlash" class="inline-flex items-center px-3 py-1.5 border border-slate-200 text-xs sm:text-sm font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 transition shadow-sm">
-            <i class="fa-solid fa-print text-blue-600 sm:mr-1.5"></i>
-            <span class="hidden sm:inline">Chop etish</span>
+          <button id="btn-print-texkarta" title="Chop etish yoki PDF saqlash" class="inline-flex items-center justify-center min-h-[44px] min-w-[44px] px-2.5 sm:px-3 py-2 border border-slate-200 text-xs sm:text-sm font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 transition shadow-sm">
+            <i class="fa-solid fa-print text-blue-600 lg:mr-1.5 text-sm"></i>
+            <span class="hidden lg:inline">Chop etish</span>
           </button>
 
-          <button id="btn-reset-data" class="inline-flex items-center px-2.5 py-1.5 border border-red-200 text-xs sm:text-sm font-medium rounded-lg text-red-600 bg-red-50 hover:bg-red-100 transition shadow-xs" title="Barcha salat va xomashyo ma'lumotlarini butunlay tozalash">
-            <i class="fa-solid fa-trash-can sm:mr-1.5"></i>
-            <span class="hidden sm:inline">Ma'lumotlarni tozalash</span>
+          <button id="btn-reset-data" class="inline-flex items-center justify-center min-h-[44px] min-w-[44px] px-2.5 sm:px-3 py-2 border border-red-200 text-xs sm:text-sm font-medium rounded-lg text-red-600 bg-red-50 hover:bg-red-100 transition shadow-xs" title="Barcha salat va xomashyo ma'lumotlarini butunlay tozalash">
+            <i class="fa-solid fa-trash-can lg:mr-1.5 text-sm"></i>
+            <span class="hidden lg:inline">Ma'lumotlarni tozalash</span>
           </button>
         </div>
 
@@ -516,8 +518,8 @@
     <div id="tab-xomashyo" class="tab-content space-y-6">
       
       <!-- Boshqaruv va qidiruv paneli -->
-      <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-sm flex flex-wrap items-center justify-between gap-4">
-        <div class="flex flex-1 items-center space-x-3 min-w-[280px]">
+      <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center justify-between gap-3 sm:gap-4">
+        <div class="flex flex-col sm:flex-row flex-1 items-stretch sm:items-center gap-2.5 sm:space-x-3 w-full sm:w-auto sm:min-w-[280px]">
           <!-- Qidiruv input -->
           <div class="relative flex-1">
             <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
@@ -527,7 +529,7 @@
           </div>
 
           <!-- Kategoriya bo'yicha filter -->
-          <select id="materials-category-filter" class="border border-slate-300 rounded-xl px-3 py-2 text-sm bg-slate-50 focus:bg-white text-slate-700 font-medium">
+          <select id="materials-category-filter" class="border border-slate-300 rounded-xl px-3 py-2 text-sm bg-slate-50 focus:bg-white text-slate-700 font-medium min-h-[40px]">
             <option value="all">Barcha toifalar</option>
             <option value="vegetables">Sabzavotlar va ko'katlar</option>
             <option value="spices_sauces">Ziravorlar, yog' va souslar</option>
@@ -537,7 +539,7 @@
         </div>
 
         <!-- Yangi xomashyo qo'shish tugmasi -->
-        <button id="btn-open-material-modal" class="inline-flex items-center px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-semibold transition shadow-sm">
+        <button id="btn-open-material-modal" class="inline-flex items-center justify-center min-h-[44px] px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-semibold transition shadow-sm">
           <i class="fa-solid fa-plus mr-2"></i>
           Yangi Xomashyo Qo'shish
         </button>
@@ -661,9 +663,9 @@
 
       <!-- Hujjatni boshqarish va chop etish paneli (Ekranda ko'rinadi, chop etilganda yashiriladi) -->
       <div class="no-print bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-sm flex flex-wrap items-center justify-between gap-4">
-        <div class="flex items-center space-x-3">
-          <label for="texkarta-recipe-select" class="text-xs font-bold text-slate-600 uppercase">Hujjat retsepti:</label>
-          <select id="texkarta-recipe-select" class="rounded-xl border border-slate-300 py-2 px-3 text-sm font-semibold bg-slate-50 focus:bg-white text-slate-800">
+        <div class="flex flex-wrap items-center gap-2 sm:gap-3 min-w-0 max-w-full">
+          <label for="texkarta-recipe-select" class="text-xs font-bold text-slate-600 uppercase shrink-0">Hujjat retsepti:</label>
+          <select id="texkarta-recipe-select" class="max-w-[180px] sm:max-w-xs truncate rounded-xl border border-slate-300 py-2 px-3 text-sm font-semibold bg-slate-50 focus:bg-white text-slate-800">
             <!-- Javascript orqali to'ldiriladi -->
           </select>
         </div>
@@ -737,30 +739,33 @@
           <h4 class="text-xs font-bold uppercase tracking-wider text-slate-800 mb-2">
             1. Retseptura va xomashyo sarfi me'yorlari (Таблица расхода сырья)
           </h4>
-          <table class="w-full text-xs texkarta-table border border-slate-900">
-            <thead>
-              <tr class="bg-slate-100 font-bold border-b border-slate-900 text-slate-900">
-                <th class="p-1.5 text-center w-8">№</th>
-                <th class="p-1.5 text-left">Xomashyo nomi</th>
-                <th class="p-1.5 text-center w-12">Birlik</th>
-                <th class="p-1.5 text-right w-20">Netto vazn</th>
-                <th class="p-1.5 text-center w-16">Chiqindi %</th>
-                <th class="p-1.5 text-right w-24">Narxi (so'm)</th>
-                <th class="p-1.5 text-right w-28">Summa (so'm)</th>
-              </tr>
-            </thead>
-            <tbody id="texkarta-ingredients-body">
-              <!-- Javascript orqali qatorlar chiqariladi -->
-            </tbody>
-            <tfoot>
-              <tr class="font-extrabold bg-slate-50 border-t border-slate-900">
-                <td colspan="4" class="p-2 text-right">JAMI XOMASHYO XARAJATI:</td>
-                <td id="texkarta-total-brutto" class="p-2 text-center">0 kg</td>
-                <td class="p-2"></td>
-                <td id="texkarta-total-raw-cost" class="p-2 text-right">0 so'm</td>
-              </tr>
-            </tfoot>
-          </table>
+          <div class="overflow-x-auto w-full border border-slate-300 rounded-xl my-2">
+            <table class="w-full text-xs texkarta-table border border-slate-900">
+              <thead>
+                <tr class="bg-slate-100 font-bold border-b border-slate-900 text-slate-900">
+                  <th class="p-1.5 text-center w-8">№</th>
+                  <th class="p-1.5 text-left">Xomashyo nomi</th>
+                  <th class="p-1.5 text-center w-12">Birlik</th>
+                  <th class="p-1.5 text-right w-20">Netto vazn</th>
+                  <th class="p-1.5 text-center w-16">Chiqindi %</th>
+                  <th class="p-1.5 text-right w-20">Brutto vazn</th>
+                  <th class="p-1.5 text-right w-24">Narxi (so'm)</th>
+                  <th class="p-1.5 text-right w-28">Summa (so'm)</th>
+                </tr>
+              </thead>
+              <tbody id="texkarta-ingredients-body">
+                <!-- Javascript orqali qatorlar chiqariladi -->
+              </tbody>
+              <tfoot>
+                <tr class="font-extrabold bg-slate-50 border-t border-slate-900">
+                  <td colspan="5" class="p-2 text-right">JAMI XOMASHYO XARAJATI:</td>
+                  <td id="texkarta-total-brutto" class="p-2 text-right font-bold">0 kg</td>
+                  <td class="p-2"></td>
+                  <td id="texkarta-total-raw-cost" class="p-2 text-right font-bold">0 so'm</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
         </div>
 
         <!-- 2-Jadval: Qo'shimcha xarajatlar va Yakuniy tannarx -->
@@ -866,17 +871,17 @@
        ======================================================================== -->
 
   <!-- Modal 1: Xomashyo yaratish / tahrirlash -->
-  <div id="modal-material" class="fixed inset-0 z-[60] flex items-center justify-center p-4 hidden modal">
+  <div id="modal-material" class="fixed inset-0 z-[60] flex items-center justify-center p-3 sm:p-4 hidden modal">
     <div class="modal-backdrop absolute inset-0"></div>
-    <div class="relative bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200">
-      <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+    <div class="relative bg-white rounded-2xl max-w-md w-full p-5 sm:p-6 shadow-2xl border border-slate-200 flex flex-col max-h-[90vh] overflow-hidden">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4 flex-shrink-0">
         <h3 id="modal-material-title" class="text-base font-bold text-slate-900">Yangi Xomashyo Qo'shish</h3>
-        <button type="button" class="btn-close-modal text-slate-400 hover:text-slate-600">
+        <button type="button" class="btn-close-modal text-slate-400 hover:text-slate-600 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg hover:bg-slate-100 transition">
           <i class="fa-solid fa-xmark text-lg"></i>
         </button>
       </div>
 
-      <form id="form-material" class="space-y-3.5 text-xs">
+      <form id="form-material" class="space-y-3.5 text-xs overflow-y-auto flex-1 pr-1">
         <input type="hidden" id="mat-field-id">
 
         <div>
@@ -930,17 +935,17 @@
   </div>
 
   <!-- Modal 2: Retseptga xomashyo qo'shish -->
-  <div id="modal-ingredient" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden modal">
+  <div id="modal-ingredient" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 hidden modal">
     <div class="modal-backdrop absolute inset-0"></div>
-    <div class="relative bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200">
-      <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+    <div class="relative bg-white rounded-2xl max-w-md w-full p-5 sm:p-6 shadow-2xl border border-slate-200 flex flex-col max-h-[90vh] overflow-hidden">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4 flex-shrink-0">
         <h3 class="text-base font-bold text-slate-900">Retseptga Xomashyo Qo'shish</h3>
-        <button type="button" class="btn-close-modal text-slate-400 hover:text-slate-600">
+        <button type="button" class="btn-close-modal text-slate-400 hover:text-slate-600 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg hover:bg-slate-100 transition">
           <i class="fa-solid fa-xmark text-lg"></i>
         </button>
       </div>
 
-      <form id="form-ingredient" novalidate class="space-y-3.5 text-xs">
+      <form id="form-ingredient" novalidate class="space-y-3.5 text-xs overflow-y-auto flex-1 pr-1">
         <div>
           <div class="flex items-center justify-between mb-1">
             <label class="block font-semibold text-slate-700">Xomashyoni tanlang:</label>
@@ -1029,17 +1034,17 @@
   </div>
 
   <!-- Modal 3: Yangi Retsept yaratish / tahrirlash -->
-  <div id="modal-recipe" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden modal">
+  <div id="modal-recipe" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 hidden modal">
     <div class="modal-backdrop absolute inset-0"></div>
-    <div class="relative bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200">
-      <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+    <div class="relative bg-white rounded-2xl max-w-lg w-full p-5 sm:p-6 shadow-2xl border border-slate-200 flex flex-col max-h-[90vh] overflow-hidden">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4 flex-shrink-0">
         <h3 id="modal-recipe-title" class="text-base font-bold text-slate-900">Yangi Retsept Yaratish</h3>
-        <button type="button" class="btn-close-modal text-slate-400 hover:text-slate-600">
+        <button type="button" class="btn-close-modal text-slate-400 hover:text-slate-600 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg hover:bg-slate-100 transition">
           <i class="fa-solid fa-xmark text-lg"></i>
         </button>
       </div>
 
-      <form id="form-recipe" class="space-y-3.5 text-xs">
+      <form id="form-recipe" class="space-y-3.5 text-xs overflow-y-auto flex-1 pr-1">
         <input type="hidden" id="rec-field-id">
 
         <div>
@@ -1228,6 +1233,7 @@
                     <th class="py-2.5 px-2 text-center w-14">Birlik</th>
                     <th class="py-2.5 px-2 text-right w-20">Netto</th>
                     <th class="py-2.5 px-2 text-center w-16">Chiqindi %</th>
+                    <th class="py-2.5 px-2 text-right w-20">Brutto</th>
                     <th class="py-2.5 px-2 text-right w-24">Narxi (UZS)</th>
                     <th class="py-2.5 px-2 text-right w-28">Jami Summa</th>
                     <th class="py-2.5 px-2 text-center w-10"></th>
@@ -1239,8 +1245,9 @@
                 <tfoot>
                   <tr class="bg-slate-50 font-bold border-t border-slate-200 text-slate-800">
                     <td colspan="4" class="py-2 px-3 text-right">JAMI XOMASHYO:</td>
+                    <td id="rb-footer-brutto" class="py-2 px-2 text-right text-slate-700 font-semibold">0 kg</td>
+                    <td></td>
                     <td id="rb-footer-total-cost" class="py-2 px-2 text-right text-primary-700 font-bold">0 so'm</td>
-                    <td id="rb-footer-brutto" class="hidden">0 kg</td>
                     <td></td>
                   </tr>
                 </tfoot>
@@ -1310,15 +1317,15 @@
        ======================================================================== -->
 
   <!-- Suzuvchi (Floating) AI Tugmasi -->
-  <div id="ai-floating-btn" class="fixed bottom-6 right-6 z-40 no-print flex items-center">
-    <button id="btn-toggle-ai-chat" type="button" class="group flex items-center bg-gradient-to-r from-emerald-600 via-teal-600 to-primary-600 hover:from-emerald-500 hover:to-primary-500 text-white pl-4 pr-5 py-3.5 rounded-full shadow-xl shadow-emerald-700/20 border border-white/20 transition-all duration-300">
-      <div class="relative mr-3 flex items-center justify-center">
+  <div id="ai-floating-btn" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 no-print flex items-center">
+    <button id="btn-toggle-ai-chat" type="button" aria-label="AI Texnolog maslahatchisini ochish" class="group flex items-center min-w-[48px] min-h-[48px] justify-center bg-gradient-to-r from-emerald-600 via-teal-600 to-primary-600 hover:from-emerald-500 hover:to-primary-500 text-white p-3 sm:pl-4 sm:pr-5 sm:py-3.5 rounded-full shadow-xl shadow-emerald-700/20 border border-white/20 transition-all duration-300">
+      <div class="relative sm:mr-3 flex items-center justify-center">
         <div class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-lg">
           🤖
         </div>
         <span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-400 border-2 border-white rounded-full ai-pulse-dot" title="Lokal AI Rejimi: Faol va Tezkor"></span>
       </div>
-      <div class="text-left">
+      <div class="text-left hidden sm:block">
         <div class="text-xs font-extrabold tracking-wide uppercase flex items-center">
           <span>AI Texnolog</span>
           <span class="ml-1.5 px-1.5 py-0.2 text-[9px] bg-white/20 rounded-md font-semibold">Offline</span>
@@ -1329,7 +1336,7 @@
   </div>
 
   <!-- AI Chat Darchasi (Drawer / Dialog) -->
-  <div id="ai-chat-drawer" class="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-50 w-[95vw] sm:w-[460px] max-w-full h-[640px] max-h-[88vh] bg-white rounded-3xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden hidden-drawer no-print">
+  <div id="ai-chat-drawer" class="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-50 w-[calc(100vw-2rem)] sm:w-[460px] max-w-[460px] h-[640px] max-h-[85vh] bg-white rounded-3xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden hidden-drawer no-print">
     
     <!-- Chat Yuqori Qismi (Header) -->
     <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 p-4 text-white flex items-center justify-between border-b border-slate-700/60 flex-shrink-0">
@@ -1467,14 +1474,33 @@
       });
     }
 
-    // PWA O'rnatish hodisasi
+    // PWA O'rnatish hodisasi va ko'rsatkichlar
     let deferredInstallPrompt = null;
     const btnPwa = document.getElementById('btn-pwa-install');
+
+    // Standalone (o'rnatilgan) rejimni tekshirish
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    if (isStandalone && btnPwa) {
+      btnPwa.classList.add('hidden');
+    }
+
+    // iOS Safari uchun yo'riqnoma
+    const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    if (isIos && !isStandalone && btnPwa) {
+      btnPwa.classList.remove('hidden');
+      btnPwa.addEventListener('click', () => {
+        if (typeof showToast === 'function') {
+          showToast("Ilovani o'rnatish: Pastdagi 'Ulashish' (Share) tugmasini bosing va 'Bosh ekranga qo'shish'ni tanlang.", "info", 6000);
+        } else {
+          alert("Ilovani iPhone/iPad ga o'rnatish uchun:\n1. Brauzer pastidagi 'Ulashish' (Share) tugmasini bosing.\n2. 'Bosh ekranga qo'shish' (Add to Home Screen) bandini tanlang.");
+        }
+      });
+    }
 
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredInstallPrompt = e;
-      if (btnPwa) {
+      if (btnPwa && !isStandalone) {
         btnPwa.classList.remove('hidden');
       }
     });
@@ -1486,16 +1512,17 @@
           const { outcome } = await deferredInstallPrompt.userChoice;
           if (outcome === 'accepted') {
             btnPwa.classList.add('hidden');
+            deferredInstallPrompt = null;
           }
-          deferredInstallPrompt = null;
         }
       });
     }
 
     window.addEventListener('appinstalled', () => {
       if (btnPwa) btnPwa.classList.add('hidden');
+      deferredInstallPrompt = null;
       if (typeof showToast === 'function') {
-        showToast("Ilova telefonga muvaffaqiyatli o'rnatildi!", "success");
+        showToast("Ilova qurilmangizga muvaffaqiyatli o'rnatildi!", "success");
       }
     });
   </script>

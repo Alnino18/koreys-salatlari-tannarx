@@ -96,12 +96,1290 @@
   // =========================================================================
   // 4. XOMASHYO VA MATERIALLARNING TO'LIQ BAZASI (Toshkent ulgurji bozor narxlari)
   // =========================================================================
-  let DEFAULT_RAW_MATERIALS = [];
+  let DEFAULT_RAW_MATERIALS = [
+  {
+    "id": "mat_sabzi",
+    "nameUz": "Sabzi (toza qizil)",
+    "nameRu": "Морковь свежая красная",
+    "category": "vegetables",
+    "unit": "kg",
+    "pricePerUnit": 4000,
+    "standardWastePercent": 12,
+    "description": "Koreys salatlarining asosi, qarsildoq shirali qizil sabzi"
+  },
+  {
+    "id": "mat_piyoz",
+    "nameUz": "Piyoz (bosh piyoz)",
+    "nameRu": "Лук репчатый",
+    "category": "vegetables",
+    "unit": "kg",
+    "pricePerUnit": 3000,
+    "standardWastePercent": 10,
+    "description": "Qovurilgan xushbo'y yog' asosi"
+  },
+  {
+    "id": "mat_sarimsoq",
+    "nameUz": "Sarimsoq (Chesnok)",
+    "nameRu": "Чеснок свежий",
+    "category": "vegetables",
+    "unit": "kg",
+    "pricePerUnit": 35000,
+    "standardWastePercent": 8.5,
+    "description": "O'tkir hidli yangi sarimsoq"
+  },
+  {
+    "id": "mat_bodring",
+    "nameUz": "Bodring (yangi)",
+    "nameRu": "Огурцы свежие",
+    "category": "vegetables",
+    "unit": "kg",
+    "pricePerUnit": 18000,
+    "standardWastePercent": 7,
+    "description": "Qarsildoq yangi uzilgan bodring"
+  },
+  {
+    "id": "mat_baqlajon",
+    "nameUz": "Baqlajon (yangi)",
+    "nameRu": "Баклажаны свежие",
+    "category": "vegetables",
+    "unit": "kg",
+    "pricePerUnit": 15000,
+    "standardWastePercent": 12,
+    "description": "Qora mayin baqlajon"
+  },
+  {
+    "id": "mat_pekin_karomi",
+    "nameUz": "Pekin karomi",
+    "nameRu": "Капуста пекинская",
+    "category": "vegetables",
+    "unit": "kg",
+    "pricePerUnit": 10000,
+    "standardWastePercent": 15,
+    "description": "Kimchi tayyorlash uchun shirali pekin karomi"
+  },
+  {
+    "id": "mat_qoziqorin",
+    "nameUz": "Qo'ziqorin (yangi Shampinyon)",
+    "nameRu": "Шампиньоны свежие",
+    "category": "vegetables",
+    "unit": "kg",
+    "pricePerUnit": 28000,
+    "standardWastePercent": 6,
+    "description": "Oq shampinyon qo'ziqorinlari"
+  },
+  {
+    "id": "mat_kartoshka",
+    "nameUz": "Kartoshka (saralangan)",
+    "nameRu": "Картофель отборный",
+    "category": "vegetables",
+    "unit": "kg",
+    "pricePerUnit": 5000,
+    "standardWastePercent": 14,
+    "description": "Kamdi-cha uchun qattiq kraxmalli kartoshka"
+  },
+  {
+    "id": "mat_limon",
+    "nameUz": "Limon",
+    "nameRu": "Лимон свежий",
+    "category": "vegetables",
+    "unit": "kg",
+    "pricePerUnit": 20000,
+    "standardWastePercent": 15,
+    "description": "Tabiiy nordonlik va marinadlash uchun"
+  },
+  {
+    "id": "mat_bolgar",
+    "nameUz": "Bolgar qalampiri",
+    "nameRu": "Перец болгарский сладкий",
+    "category": "vegetables",
+    "unit": "kg",
+    "pricePerUnit": 20000,
+    "standardWastePercent": 10,
+    "description": "Shirin qizil va yashil bolgar qalampiri"
+  },
+  {
+    "id": "mat_kok_piyoz",
+    "nameUz": "Ko'k piyoz",
+    "nameRu": "Зеленый лук свежий",
+    "category": "vegetables",
+    "unit": "kg",
+    "pricePerUnit": 15000,
+    "standardWastePercent": 10,
+    "description": "Yangi ko'k piyoz patlari"
+  },
+  {
+    "id": "mat_kinza",
+    "nameUz": "Kashnich ko'kati (Kinza)",
+    "nameRu": "Свежая кинза",
+    "category": "vegetables",
+    "unit": "kg",
+    "pricePerUnit": 15000,
+    "standardWastePercent": 10,
+    "description": "Xushbo'y yangi kashnich barglari"
+  },
+  {
+    "id": "mat_daikon",
+    "nameUz": "Daikon (oq turp)",
+    "nameRu": "Дайкон (редька белая)",
+    "category": "vegetables",
+    "unit": "kg",
+    "pricePerUnit": 6000,
+    "standardWastePercent": 12,
+    "description": "Kimchi va sharqona salatlar uchun sersuv turp"
+  },
+  {
+    "id": "mat_pomidor",
+    "nameUz": "Pomidor (yangi)",
+    "nameRu": "Помидоры свежие",
+    "category": "vegetables",
+    "unit": "kg",
+    "pricePerUnit": 16000,
+    "standardWastePercent": 5,
+    "description": "Baqlajon-cha uchun qattiq qizil pomidor"
+  },
+  {
+    "id": "mat_yogi",
+    "nameUz": "O'simlik yog'i",
+    "nameRu": "Масло растительное",
+    "category": "spices_sauces",
+    "unit": "litr",
+    "pricePerUnit": 16000,
+    "standardWastePercent": 0,
+    "description": "Tozalangan paxta yoki kungaboqar yog'i"
+  },
+  {
+    "id": "mat_uksus70",
+    "nameUz": "Sirka kislotasi 70%",
+    "nameRu": "Уксусная эссенция 70%",
+    "category": "spices_sauces",
+    "unit": "litr",
+    "pricePerUnit": 12000,
+    "standardWastePercent": 0,
+    "description": "Konsentrlangan sirka kislotasi"
+  },
+  {
+    "id": "mat_soya_sousi",
+    "nameUz": "So'ya sousi",
+    "nameRu": "Соевый соус классический",
+    "category": "spices_sauces",
+    "unit": "litr",
+    "pricePerUnit": 22000,
+    "standardWastePercent": 0,
+    "description": "Tabiiy achitilgan sharqona so'ya sousi"
+  },
+  {
+    "id": "mat_kunjut_yogi",
+    "nameUz": "Kunjut yog'i",
+    "nameRu": "Кунжутное масло",
+    "category": "spices_sauces",
+    "unit": "litr",
+    "pricePerUnit": 85000,
+    "standardWastePercent": 0,
+    "description": "Toza xushbo'y qovurilgan kunjut yog'i"
+  },
+  {
+    "id": "mat_kashnich_urug",
+    "nameUz": "Kashnich urug'i (Koriandr)",
+    "nameRu": "Семена кориандра молотые",
+    "category": "spices_sauces",
+    "unit": "kg",
+    "pricePerUnit": 45000,
+    "standardWastePercent": 0,
+    "description": "Yangi tuyilgan koriandr urug'i"
+  },
+  {
+    "id": "mat_kochukaru",
+    "nameUz": "Kochukaru qalampir",
+    "nameRu": "Перец кочукару корейский",
+    "category": "spices_sauces",
+    "unit": "kg",
+    "pricePerUnit": 60000,
+    "standardWastePercent": 0,
+    "description": "Kimchi uchun maxsus yirik maydalangan qizil qalampir"
+  },
+  {
+    "id": "mat_qalampir_qizil",
+    "nameUz": "Qizil achchiq murch",
+    "nameRu": "Красный острый перец молотый",
+    "category": "spices_sauces",
+    "unit": "kg",
+    "pricePerUnit": 60000,
+    "standardWastePercent": 0,
+    "description": "Achchiq qizil qalampir kukuni"
+  },
+  {
+    "id": "mat_paprika",
+    "nameUz": "Shirin qizil paprika",
+    "nameRu": "Паприка сладкая молотая",
+    "category": "spices_sauces",
+    "unit": "kg",
+    "pricePerUnit": 55000,
+    "standardWastePercent": 0,
+    "description": "Yorqin qizil rang beruvchi shirin murch kukuni"
+  },
+  {
+    "id": "mat_murch_qora",
+    "nameUz": "Qora murch (maydalangan)",
+    "nameRu": "Черный перец молотый",
+    "category": "spices_sauces",
+    "unit": "kg",
+    "pricePerUnit": 65000,
+    "standardWastePercent": 0,
+    "description": "Xushbo'y qora qalampir"
+  },
+  {
+    "id": "mat_ajinomoto",
+    "nameUz": "Glyutamat natriy (Ajinomoto)",
+    "nameRu": "Глутамат натрия (Аджиномото)",
+    "category": "spices_sauces",
+    "unit": "kg",
+    "pricePerUnit": 50000,
+    "standardWastePercent": 0,
+    "description": "Umami ta'mini kuchaytiruvchi kristallar"
+  },
+  {
+    "id": "mat_shakar",
+    "nameUz": "Shakar qumi",
+    "nameRu": "Сахар-песок",
+    "category": "spices_sauces",
+    "unit": "kg",
+    "pricePerUnit": 12000,
+    "standardWastePercent": 0,
+    "description": "Oq shakar qumi"
+  },
+  {
+    "id": "mat_tuz",
+    "nameUz": "Osh tuzi",
+    "nameRu": "Соль поваренная пищевая",
+    "category": "spices_sauces",
+    "unit": "kg",
+    "pricePerUnit": 3000,
+    "standardWastePercent": 0,
+    "description": "Yodlangan mayda osh tuzi"
+  },
+  {
+    "id": "mat_zanjabil",
+    "nameUz": "Zanjabil ildizi",
+    "nameRu": "Имбирь свежий",
+    "category": "spices_sauces",
+    "unit": "kg",
+    "pricePerUnit": 40000,
+    "standardWastePercent": 12,
+    "description": "Yangi qirg'ichlangan zanjabil ildizi"
+  },
+  {
+    "id": "mat_baliq_sousi",
+    "nameUz": "Baliq sousi",
+    "nameRu": "Рыбный соус анчоусный",
+    "category": "spices_sauces",
+    "unit": "litr",
+    "pricePerUnit": 35000,
+    "standardWastePercent": 0,
+    "description": "Kimchi fermentatsiyasi uchun tabiiy sous"
+  },
+  {
+    "id": "mat_funchoza",
+    "nameUz": "Funchoza (kraxmalli lapsha)",
+    "nameRu": "Фунчоза (бобовая/крахмальная лапша)",
+    "category": "dry_goods",
+    "unit": "kg",
+    "pricePerUnit": 45000,
+    "standardWastePercent": 0,
+    "description": "Quruq kraxmalli shisha lapsha (ivitilganda 2.3x og'irlashadi)"
+  },
+  {
+    "id": "mat_fuju",
+    "nameUz": "Fuju / Spargel (quruq)",
+    "nameRu": "Фучжу (соевая спаржа сухая)",
+    "category": "dry_goods",
+    "unit": "kg",
+    "pricePerUnit": 60000,
+    "standardWastePercent": 0,
+    "description": "Quritilgan soya fujusi (ivitilganda 2.5x og'irlashadi)"
+  },
+  {
+    "id": "mat_mol_goshti",
+    "nameUz": "Mol go'shti (lahm)",
+    "nameRu": "Говядина бескостная (мякоть)",
+    "category": "dry_goods",
+    "unit": "kg",
+    "pricePerUnit": 95000,
+    "standardWastePercent": 8,
+    "description": "He salati uchun muzdek lahm mol go'shti"
+  },
+  {
+    "id": "mat_toyuq_filesi",
+    "nameUz": "Tovuq filesi",
+    "nameRu": "Куриное филе свежее",
+    "category": "dry_goods",
+    "unit": "kg",
+    "pricePerUnit": 42000,
+    "standardWastePercent": 6,
+    "description": "Parranda go'shtli salatlar uchun toza file"
+  },
+  {
+    "id": "mat_guruch_uni",
+    "nameUz": "Guruch uni",
+    "nameRu": "Мука рисовая клейкая",
+    "category": "dry_goods",
+    "unit": "kg",
+    "pricePerUnit": 14000,
+    "standardWastePercent": 0,
+    "description": "Kimchi sousi yelimi (bo'tqasi) uchun"
+  },
+  {
+    "id": "mat_kunjut",
+    "nameUz": "Kunjut urug'i (oq)",
+    "nameRu": "Семена кунжута белые",
+    "category": "dry_goods",
+    "unit": "kg",
+    "pricePerUnit": 40000,
+    "standardWastePercent": 0,
+    "description": "Salatlar ustiga sepish uchun toza oq kunjut"
+  },
+  {
+    "id": "mat_pack_250g",
+    "nameUz": "Konteyner 250g",
+    "nameRu": "Контейнер пластиковый 250г",
+    "category": "packaging",
+    "unit": "dona",
+    "pricePerUnit": 850,
+    "standardWastePercent": 0,
+    "description": "Qopqoqli bir martalik plastik idish 250 gr"
+  },
+  {
+    "id": "mat_pack_500g",
+    "nameUz": "Konteyner 500g",
+    "nameRu": "Контейнер пластиковый 500г",
+    "category": "packaging",
+    "unit": "dona",
+    "pricePerUnit": 1100,
+    "standardWastePercent": 0,
+    "description": "Qopqoqli bir martalik plastik idish 500 gr (standart)"
+  },
+  {
+    "id": "mat_pack_1000g",
+    "nameUz": "Konteyner 1000g",
+    "nameRu": "Контейнер пластиковый 1000г",
+    "category": "packaging",
+    "unit": "dona",
+    "pricePerUnit": 1600,
+    "standardWastePercent": 0,
+    "description": "Qopqoqli bir martalik plastik idish 1 kg"
+  },
+  {
+    "id": "mat_vakuum_paket",
+    "nameUz": "Vakuum paket 20x30",
+    "nameRu": "Пакет вакуумный 20х30",
+    "category": "packaging",
+    "unit": "dona",
+    "pricePerUnit": 500,
+    "standardWastePercent": 0,
+    "description": "Uzoq saqlash va havosiz qadoqlash paketi"
+  },
+  {
+    "id": "mat_label_brand",
+    "nameUz": "Brend stiker / etiketka",
+    "nameRu": "Фирменная наклейка-этикетка",
+    "category": "packaging",
+    "unit": "dona",
+    "pricePerUnit": 200,
+    "standardWastePercent": 0,
+    "description": "Rangli yopishqoq mahsulot yorlig'i"
+  },
+  {
+    "id": "mat_bag_plastic",
+    "nameUz": "Paket (xarid paketi)",
+    "nameRu": "Пакет упаковочный",
+    "category": "packaging",
+    "unit": "dona",
+    "pricePerUnit": 100,
+    "standardWastePercent": 0,
+    "description": "Bir martalik polietilen xarid paketi"
+  }
+];
 
   // =========================================================================
-  // 5. TEXNOLOGIK XARITALAR (Toza holat)
+  // 5. TEXNOLOGIK XARITALAR (Standart asosiy retseptlar)
   // =========================================================================
-  let DEFAULT_RECIPES = [];
+  let DEFAULT_RECIPES = [
+  {
+    "id": "recipe_morkovcha",
+    "code": "REC-01",
+    "nameUz": "Koreyscha sabzi salati (Morkovcha)",
+    "nameRu": "Морковь по-корейски (Морковча)",
+    "category": "Sabzavotli",
+    "batchOutputKg": 10,
+    "portionSizesKg": [
+      0.25,
+      0.5,
+      1
+    ],
+    "defaultMarkupPercent": 40,
+    "preparationTimeMin": 45,
+    "shelfLifeDays": 15,
+    "storageConditions": "+2°C...+6°C da 15 kun",
+    "descriptionUz": "Shirali qizil sabzi, xushbo'y qovurilgan piyozli o'simlik yog'i, sarimsoq, yangi tuyilgan koriandr va koreyscha ziravorlar bilan tayyorlanadigan klassik salat.",
+    "descriptionRu": "Классическая хрустящая корейская морковь с чесноком, молотым кориандром и ароматным луковым маслом.",
+    "instructions": "Sabzi tozalanadi, koreyscha maxsus qirg'ichdan o'tkaziladi. Tuz sepilib 15-20 daqiqa tindiriladi va yengil siqiladi. Sarimsoq, shakar, uksus va maydalangan kashnich urug'i qo'shiladi. O'simlik yog'i tovada qizdirilib, qizil qalampir bilan birga sabzi ustiga quyiladi. Yaxshilab aralashtirilib, +2...+4°C haroratda 3-4 soat marinadlanadi.",
+    "ingredients": [
+      {
+        "materialId": "mat_sabzi",
+        "nameUz": "Sabzi (toza qizil)",
+        "nameRu": "Морковь свежая",
+        "grossWeight": 10.227,
+        "wastePercent": 12,
+        "netWeight": 9,
+        "unit": "kg",
+        "unitPrice": 4000,
+        "notes": "Koreys qirg'ichida uzun somoncha qilib qiriladi"
+      },
+      {
+        "materialId": "mat_piyoz",
+        "nameUz": "Piyoz (bosh piyoz)",
+        "nameRu": "Лук репчатый",
+        "grossWeight": 0.667,
+        "wastePercent": 10,
+        "netWeight": 0.6,
+        "unit": "kg",
+        "unitPrice": 3000,
+        "notes": "Yarim halqa qilib yog'da tillarang qovuriladi"
+      },
+      {
+        "materialId": "mat_sarimsoq",
+        "nameUz": "Sarimsoq (Chesnok)",
+        "nameRu": "Чеснок свежий",
+        "grossWeight": 0.219,
+        "wastePercent": 8.5,
+        "netWeight": 0.2,
+        "unit": "kg",
+        "unitPrice": 35000,
+        "notes": "Mayda presslangan"
+      },
+      {
+        "materialId": "mat_yogi",
+        "nameUz": "O'simlik yog'i",
+        "nameRu": "Масло растительное",
+        "grossWeight": 0.5,
+        "wastePercent": 0,
+        "netWeight": 0.5,
+        "unit": "litr",
+        "unitPrice": 16000,
+        "notes": "Piyoz qovurish va sabzi ustiga qaynoq quyish uchun"
+      },
+      {
+        "materialId": "mat_uksus70",
+        "nameUz": "Sirka kislotasi 70%",
+        "nameRu": "Уксусная эссенция 70%",
+        "grossWeight": 0.04,
+        "wastePercent": 0,
+        "netWeight": 0.04,
+        "unit": "litr",
+        "unitPrice": 12000,
+        "notes": "Marinadlash uchun"
+      },
+      {
+        "materialId": "mat_shakar",
+        "nameUz": "Shakar qumi",
+        "nameRu": "Сахар-песок",
+        "grossWeight": 0.15,
+        "wastePercent": 0,
+        "netWeight": 0.15,
+        "unit": "kg",
+        "unitPrice": 12000,
+        "notes": "Ta'm muvozanati"
+      },
+      {
+        "materialId": "mat_tuz",
+        "nameUz": "Osh tuzi",
+        "nameRu": "Соль пищевая",
+        "grossWeight": 0.18,
+        "wastePercent": 0,
+        "netWeight": 0.18,
+        "unit": "kg",
+        "unitPrice": 3000,
+        "notes": "Sabzini tuzlash uchun"
+      },
+      {
+        "materialId": "mat_kashnich_urug",
+        "nameUz": "Kashnich urug'i (Koriandr)",
+        "nameRu": "Семена кориандра",
+        "grossWeight": 0.05,
+        "wastePercent": 0,
+        "netWeight": 0.05,
+        "unit": "kg",
+        "unitPrice": 45000,
+        "notes": "Yangi tuyilgan koriandr"
+      },
+      {
+        "materialId": "mat_qalampir_qizil",
+        "nameUz": "Qizil achchiq murch",
+        "nameRu": "Красный острый перец",
+        "grossWeight": 0.04,
+        "wastePercent": 0,
+        "netWeight": 0.04,
+        "unit": "kg",
+        "unitPrice": 60000,
+        "notes": "Achchiqlik darajasini belgilaydi"
+      },
+      {
+        "materialId": "mat_ajinomoto",
+        "nameUz": "Glyutamat natriy (Ajinomoto)",
+        "nameRu": "Глутамат натрия",
+        "grossWeight": 0.02,
+        "wastePercent": 0,
+        "netWeight": 0.02,
+        "unit": "kg",
+        "unitPrice": 50000,
+        "notes": "Sharqona umami ta'm kuchaytirgich"
+      }
+    ],
+    "operationalCosts": {
+      "laborPerKg": 1500,
+      "utilitiesPerKg": 400,
+      "depreciationPerKg": 150,
+      "transportPerKg": 400,
+      "overheadPerKg": 250
+    },
+    "packagingConfig": {
+      "defaultType": "container_500g",
+      "containerMaterialId": "mat_pack_500g",
+      "portionSizeKg": 0.5,
+      "containersNeeded": 20,
+      "includeLabel": true,
+      "labelMaterialId": "mat_label_brand",
+      "includeBag": true,
+      "bagMaterialId": "mat_bag_plastic"
+    }
+  },
+  {
+    "id": "recipe_funchoza",
+    "code": "REC-02",
+    "nameUz": "Koreyscha Funchoza salati",
+    "nameRu": "Салат Фунчоза по-корейски",
+    "category": "Kraxmalli / Lapshali",
+    "batchOutputKg": 10,
+    "portionSizesKg": [
+      0.25,
+      0.5,
+      1
+    ],
+    "defaultMarkupPercent": 45,
+    "preparationTimeMin": 40,
+    "shelfLifeDays": 7,
+    "storageConditions": "+2°C...+5°C da 7 kun",
+    "descriptionUz": "Kraxmalli lapsha, sabzi somonchasi, yangi bodring, bolgar qalampiri, sarimsoq va maxsus so'ya-kunjut sousi bilan tayyorlanadigan eng xaridorgir salat.",
+    "descriptionRu": "Популярный праздничный салат из бобовой фунчозы, свежих хрустящих овощей, чеснока и кунжутной соевой заправки.",
+    "instructions": "Funchoza 7-8 daqiqa qaynoq suvda ivitiladi, sovuq suvda chayiladi va qirqiladi. Sabzi, bodring va bolgar qalampiri ingichka somoncha qilib to'g'raladi. Qizdirilgan yog'da ziravorlar qovurilib, so'ya sousi va uksus bilan aralashtiriladi. Hammasi yaxshilab birlashtirilib, kunjut sepiladi.",
+    "ingredients": [
+      {
+        "materialId": "mat_funchoza",
+        "nameUz": "Funchoza (kraxmalli lapsha)",
+        "nameRu": "Фунчоза сухая",
+        "grossWeight": 3.5,
+        "wastePercent": 0,
+        "netWeight": 3.5,
+        "unit": "kg",
+        "unitPrice": 45000,
+        "notes": "Ivitilganda 2.3 barobar bo'kadi (~8 kg tayyor lapsha)"
+      },
+      {
+        "materialId": "mat_sabzi",
+        "nameUz": "Sabzi (toza qizil)",
+        "nameRu": "Морковь свежая",
+        "grossWeight": 2.045,
+        "wastePercent": 12,
+        "netWeight": 1.8,
+        "unit": "kg",
+        "unitPrice": 4000,
+        "notes": "Ingichka qirg'ichlangan"
+      },
+      {
+        "materialId": "mat_bodring",
+        "nameUz": "Bodring (yangi)",
+        "nameRu": "Огурцы свежие",
+        "grossWeight": 2.151,
+        "wastePercent": 7,
+        "netWeight": 2,
+        "unit": "kg",
+        "unitPrice": 18000,
+        "notes": "Somoncha to'g'ralgan, yengil siqilgan"
+      },
+      {
+        "materialId": "mat_bolgar",
+        "nameUz": "Bolgar qalampiri",
+        "nameRu": "Перец болгарский сладкий",
+        "grossWeight": 1.333,
+        "wastePercent": 10,
+        "netWeight": 1.2,
+        "unit": "kg",
+        "unitPrice": 20000,
+        "notes": "Rang-barang somoncha"
+      },
+      {
+        "materialId": "mat_sarimsoq",
+        "nameUz": "Sarimsoq (Chesnok)",
+        "nameRu": "Чеснок свежий",
+        "grossWeight": 0.164,
+        "wastePercent": 8.5,
+        "netWeight": 0.15,
+        "unit": "kg",
+        "unitPrice": 35000,
+        "notes": "Ezilgan"
+      },
+      {
+        "materialId": "mat_kinza",
+        "nameUz": "Kashnich ko'kati (Kinza)",
+        "nameRu": "Свежая кинза",
+        "grossWeight": 0.167,
+        "wastePercent": 10,
+        "netWeight": 0.15,
+        "unit": "kg",
+        "unitPrice": 15000,
+        "notes": "Mayda to'g'ralgan"
+      },
+      {
+        "materialId": "mat_yogi",
+        "nameUz": "O'simlik yog'i",
+        "nameRu": "Масло растительное",
+        "grossWeight": 0.5,
+        "wastePercent": 0,
+        "netWeight": 0.5,
+        "unit": "litr",
+        "unitPrice": 16000,
+        "notes": "Ziravorlarni qizdirib quyish uchun"
+      },
+      {
+        "materialId": "mat_soya_sousi",
+        "nameUz": "So'ya sousi",
+        "nameRu": "Соевый соус",
+        "grossWeight": 0.3,
+        "wastePercent": 0,
+        "netWeight": 0.3,
+        "unit": "litr",
+        "unitPrice": 22000,
+        "notes": "Klassik sharqona ta'm"
+      },
+      {
+        "materialId": "mat_kunjut_yogi",
+        "nameUz": "Kunjut yog'i",
+        "nameRu": "Кунжутное масло",
+        "grossWeight": 0.05,
+        "wastePercent": 0,
+        "netWeight": 0.05,
+        "unit": "litr",
+        "unitPrice": 85000,
+        "notes": "Xushbo'y hid beruvchi"
+      },
+      {
+        "materialId": "mat_uksus70",
+        "nameUz": "Sirka kislotasi 70%",
+        "nameRu": "Уксусная эссенция 70%",
+        "grossWeight": 0.03,
+        "wastePercent": 0,
+        "netWeight": 0.03,
+        "unit": "litr",
+        "unitPrice": 12000,
+        "notes": "Yengil marinad"
+      },
+      {
+        "materialId": "mat_shakar",
+        "nameUz": "Shakar qumi",
+        "nameRu": "Сахар-песок",
+        "grossWeight": 0.1,
+        "wastePercent": 0,
+        "netWeight": 0.1,
+        "unit": "kg",
+        "unitPrice": 12000,
+        "notes": "Ta'm muvozanati"
+      },
+      {
+        "materialId": "mat_tuz",
+        "nameUz": "Osh tuzi",
+        "nameRu": "Соль пищевая",
+        "grossWeight": 0.12,
+        "wastePercent": 0,
+        "netWeight": 0.12,
+        "unit": "kg",
+        "unitPrice": 3000,
+        "notes": "Sabzavotlarni tuzlash"
+      },
+      {
+        "materialId": "mat_kashnich_urug",
+        "nameUz": "Kashnich urug'i (Koriandr)",
+        "nameRu": "Семена кориандра",
+        "grossWeight": 0.04,
+        "wastePercent": 0,
+        "netWeight": 0.04,
+        "unit": "kg",
+        "unitPrice": 45000,
+        "notes": "Maydalangan koriandr"
+      },
+      {
+        "materialId": "mat_kunjut",
+        "nameUz": "Kunjut urug'i (oq)",
+        "nameRu": "Семена кунжута белые",
+        "grossWeight": 0.05,
+        "wastePercent": 0,
+        "netWeight": 0.05,
+        "unit": "kg",
+        "unitPrice": 40000,
+        "notes": "Qovurilgan oq kunjut"
+      },
+      {
+        "materialId": "mat_ajinomoto",
+        "nameUz": "Glyutamat natriy (Ajinomoto)",
+        "nameRu": "Глутамат натрия",
+        "grossWeight": 0.015,
+        "wastePercent": 0,
+        "netWeight": 0.015,
+        "unit": "kg",
+        "unitPrice": 50000,
+        "notes": "Umami kuchaytirgich"
+      }
+    ],
+    "operationalCosts": {
+      "laborPerKg": 1800,
+      "utilitiesPerKg": 500,
+      "depreciationPerKg": 200,
+      "transportPerKg": 500,
+      "overheadPerKg": 300
+    },
+    "packagingConfig": {
+      "defaultType": "container_500g",
+      "containerMaterialId": "mat_pack_500g",
+      "portionSizeKg": 0.5,
+      "containersNeeded": 20,
+      "includeLabel": true,
+      "labelMaterialId": "mat_label_brand",
+      "includeBag": true,
+      "bagMaterialId": "mat_bag_plastic"
+    }
+  },
+  {
+    "id": "recipe_kimchi",
+    "code": "REC-03",
+    "nameUz": "Kimchi (Koreyscha achchiq karom)",
+    "nameRu": "Кимчи (Острая квашеная капуста)",
+    "category": "Fermentatsiyalangan",
+    "batchOutputKg": 10,
+    "portionSizesKg": [
+      0.5,
+      1
+    ],
+    "defaultMarkupPercent": 50,
+    "preparationTimeMin": 120,
+    "shelfLifeDays": 30,
+    "storageConditions": "+1°C...+4°C da 30 kun",
+    "descriptionUz": "Pekin karomi, maxsus kochukaru qalampiri, daikon, sarimsoq, zanjabil va guruch bo'tqasi bilan fermentatsiya qilinadigan an'anaviy koreys milliy taomi.",
+    "descriptionRu": "Традиционная корейская ферментированная пекинская капуста с перцем кочукару, имбирем, чесноком и рыбным соусом.",
+    "instructions": "Pekin karomi uzunasiga 2 yoki 4 ga bo'linib, qalin qilib tuzlanadi (4-6 soat). So'ng sovuq suvda 3 marta yuvilib suvi oqiziladi. Guruch unidan yengil kisel pishirilib, unga kochukaru qalampir, ezilgan sarimsoq, qirg'ichlangan zanjabil, baliq sousi, shakar va daikon aralashtiriladi. Karom barglari orasi ushbu sous bilan ishqalanadi va zichlab idishga bostirilib 24-36 soat xona haroratida, so'ng sovutgichda fermentatsiya qilinadi.",
+    "ingredients": [
+      {
+        "materialId": "mat_pekin_karomi",
+        "nameUz": "Pekin karomi",
+        "nameRu": "Капуста пекинская свежая",
+        "grossWeight": 10,
+        "wastePercent": 15,
+        "netWeight": 8.5,
+        "unit": "kg",
+        "unitPrice": 10000,
+        "notes": "Yirik sog'lom bargli pekin karomi"
+      },
+      {
+        "materialId": "mat_daikon",
+        "nameUz": "Daikon (oq turp)",
+        "nameRu": "Дайкон свежий",
+        "grossWeight": 0.909,
+        "wastePercent": 12,
+        "netWeight": 0.8,
+        "unit": "kg",
+        "unitPrice": 6000,
+        "notes": "Yupqa somoncha qilib qirilgan"
+      },
+      {
+        "materialId": "mat_sarimsoq",
+        "nameUz": "Sarimsoq (Chesnok)",
+        "nameRu": "Чеснок свежий",
+        "grossWeight": 0.328,
+        "wastePercent": 8.5,
+        "netWeight": 0.3,
+        "unit": "kg",
+        "unitPrice": 35000,
+        "notes": "Blendrda pyure qilingan"
+      },
+      {
+        "materialId": "mat_zanjabil",
+        "nameUz": "Zanjabil ildizi",
+        "nameRu": "Имбирь свежий",
+        "grossWeight": 0.091,
+        "wastePercent": 12,
+        "netWeight": 0.08,
+        "unit": "kg",
+        "unitPrice": 40000,
+        "notes": "Mayda qirg'ichlangan"
+      },
+      {
+        "materialId": "mat_kok_piyoz",
+        "nameUz": "Ko'k piyoz",
+        "nameRu": "Зеленый лук",
+        "grossWeight": 0.333,
+        "wastePercent": 10,
+        "netWeight": 0.3,
+        "unit": "kg",
+        "unitPrice": 15000,
+        "notes": "3-4 sm uzunlikda to'g'ralgan"
+      },
+      {
+        "materialId": "mat_kochukaru",
+        "nameUz": "Kochukaru qalampir",
+        "nameRu": "Перец кочукару",
+        "grossWeight": 0.35,
+        "wastePercent": 0,
+        "netWeight": 0.35,
+        "unit": "kg",
+        "unitPrice": 60000,
+        "notes": "Haqiqiy koreyscha yirik qizil qalampir"
+      },
+      {
+        "materialId": "mat_baliq_sousi",
+        "nameUz": "Baliq sousi",
+        "nameRu": "Рыбный соус",
+        "grossWeight": 0.15,
+        "wastePercent": 0,
+        "netWeight": 0.15,
+        "unit": "litr",
+        "unitPrice": 35000,
+        "notes": "Fermentatsiya katalizatori"
+      },
+      {
+        "materialId": "mat_guruch_uni",
+        "nameUz": "Guruch uni",
+        "nameRu": "Мука рисовая",
+        "grossWeight": 0.1,
+        "wastePercent": 0,
+        "netWeight": 0.1,
+        "unit": "kg",
+        "unitPrice": 14000,
+        "notes": "Suv bilan qaynatilib kisel (yelim) qilinadi"
+      },
+      {
+        "materialId": "mat_shakar",
+        "nameUz": "Shakar qumi",
+        "nameRu": "Сахар-песок",
+        "grossWeight": 0.1,
+        "wastePercent": 0,
+        "netWeight": 0.1,
+        "unit": "kg",
+        "unitPrice": 12000,
+        "notes": "Bakteriyalar ozuqasi va ta'm"
+      },
+      {
+        "materialId": "mat_tuz",
+        "nameUz": "Osh tuzi",
+        "nameRu": "Соль пищевая",
+        "grossWeight": 0.5,
+        "wastePercent": 0,
+        "netWeight": 0.5,
+        "unit": "kg",
+        "unitPrice": 3000,
+        "notes": "Karomni yirik qilib tuzlashga"
+      }
+    ],
+    "operationalCosts": {
+      "laborPerKg": 2000,
+      "utilitiesPerKg": 400,
+      "depreciationPerKg": 200,
+      "transportPerKg": 500,
+      "overheadPerKg": 300
+    },
+    "packagingConfig": {
+      "defaultType": "container_500g",
+      "containerMaterialId": "mat_pack_500g",
+      "portionSizeKg": 0.5,
+      "containersNeeded": 20,
+      "includeLabel": true,
+      "labelMaterialId": "mat_label_brand",
+      "includeBag": true,
+      "bagMaterialId": "mat_bag_plastic"
+    }
+  },
+  {
+    "id": "recipe_baqlajon",
+    "code": "REC-04",
+    "nameUz": "Baqlajon salati (Baqlajon-cha)",
+    "nameRu": "Салат из баклажанов по-корейски (Баклажан-ча)",
+    "category": "Sabzavotli",
+    "batchOutputKg": 10,
+    "portionSizesKg": [
+      0.25,
+      0.5,
+      1
+    ],
+    "defaultMarkupPercent": 45,
+    "preparationTimeMin": 60,
+    "shelfLifeDays": 7,
+    "storageConditions": "+2°C...+5°C da 7 kun",
+    "descriptionUz": "Qovurilgan shirali baqlajon bo'laklari, yangi pomidor, shirin bolgar qalampiri, sarimsoq va ko'katlar bilan to'yintirilgan mazali salat.",
+    "descriptionRu": "Сочный ароматный салат из обжаренных баклажанов со свежими помидорами, сладким перцем, чесноком и зеленью.",
+    "instructions": "Baqlajonlar parrak yoki bo'lak qilib kesilib, tuz sepiladi (achchig'i chiqishi uchun 20 daqiqa). Suvi siqilib, qizigan yog'da tillarang bo'lguncha qovuriladi. Alohida somoncha to'g'ralgan pomidor, bolgar, piyoz va ezilgan sarimsoq bilan aralashtiriladi. So'ya sousi, uksus va ziravorlar qo'shilib marinadlanadi.",
+    "ingredients": [
+      {
+        "materialId": "mat_baqlajon",
+        "nameUz": "Baqlajon (yangi)",
+        "nameRu": "Баклажаны свежие",
+        "grossWeight": 7.386,
+        "wastePercent": 12,
+        "netWeight": 6.5,
+        "unit": "kg",
+        "unitPrice": 15000,
+        "notes": "Parrak qilib kesilgan, tuzlab siqilgan"
+      },
+      {
+        "materialId": "mat_pomidor",
+        "nameUz": "Pomidor (yangi)",
+        "nameRu": "Помидоры свежие",
+        "grossWeight": 1.579,
+        "wastePercent": 5,
+        "netWeight": 1.5,
+        "unit": "kg",
+        "unitPrice": 16000,
+        "notes": "Parrak to'g'ralgan"
+      },
+      {
+        "materialId": "mat_bolgar",
+        "nameUz": "Bolgar qalampiri",
+        "nameRu": "Перец болгарский сладкий",
+        "grossWeight": 1.333,
+        "wastePercent": 10,
+        "netWeight": 1.2,
+        "unit": "kg",
+        "unitPrice": 20000,
+        "notes": "Somoncha to'g'ralgan"
+      },
+      {
+        "materialId": "mat_piyoz",
+        "nameUz": "Piyoz (bosh piyoz)",
+        "nameRu": "Лук репчатый",
+        "grossWeight": 0.889,
+        "wastePercent": 10,
+        "netWeight": 0.8,
+        "unit": "kg",
+        "unitPrice": 3000,
+        "notes": "Yupqa yarim halqa"
+      },
+      {
+        "materialId": "mat_sarimsoq",
+        "nameUz": "Sarimsoq (Chesnok)",
+        "nameRu": "Чеснок свежий",
+        "grossWeight": 0.197,
+        "wastePercent": 8.5,
+        "netWeight": 0.18,
+        "unit": "kg",
+        "unitPrice": 35000,
+        "notes": "Ezilgan sarimsoq"
+      },
+      {
+        "materialId": "mat_kinza",
+        "nameUz": "Kashnich ko'kati (Kinza)",
+        "nameRu": "Свежая кинза",
+        "grossWeight": 0.167,
+        "wastePercent": 10,
+        "netWeight": 0.15,
+        "unit": "kg",
+        "unitPrice": 15000,
+        "notes": "Mayda to'g'ralgan"
+      },
+      {
+        "materialId": "mat_yogi",
+        "nameUz": "O'simlik yog'i",
+        "nameRu": "Масло растительное",
+        "grossWeight": 0.7,
+        "wastePercent": 0,
+        "netWeight": 0.7,
+        "unit": "litr",
+        "unitPrice": 16000,
+        "notes": "Baqlajonlarni qovurish va quyish uchun"
+      },
+      {
+        "materialId": "mat_soya_sousi",
+        "nameUz": "So'ya sousi",
+        "nameRu": "Соевый соус",
+        "grossWeight": 0.2,
+        "wastePercent": 0,
+        "netWeight": 0.2,
+        "unit": "litr",
+        "unitPrice": 22000,
+        "notes": "Mazali marinad asosi"
+      },
+      {
+        "materialId": "mat_uksus70",
+        "nameUz": "Sirka kislotasi 70%",
+        "nameRu": "Уксусная эссенция 70%",
+        "grossWeight": 0.03,
+        "wastePercent": 0,
+        "netWeight": 0.03,
+        "unit": "litr",
+        "unitPrice": 12000,
+        "notes": "Nordonlik va konservatsiya"
+      },
+      {
+        "materialId": "mat_shakar",
+        "nameUz": "Shakar qumi",
+        "nameRu": "Сахар-песок",
+        "grossWeight": 0.1,
+        "wastePercent": 0,
+        "netWeight": 0.1,
+        "unit": "kg",
+        "unitPrice": 12000,
+        "notes": "Ta'm muvozanati"
+      },
+      {
+        "materialId": "mat_tuz",
+        "nameUz": "Osh tuzi",
+        "nameRu": "Соль пищевая",
+        "grossWeight": 0.15,
+        "wastePercent": 0,
+        "netWeight": 0.15,
+        "unit": "kg",
+        "unitPrice": 3000,
+        "notes": "Tuzlash uchun"
+      },
+      {
+        "materialId": "mat_kashnich_urug",
+        "nameUz": "Kashnich urug'i (Koriandr)",
+        "nameRu": "Семена кориандра",
+        "grossWeight": 0.04,
+        "wastePercent": 0,
+        "netWeight": 0.04,
+        "unit": "kg",
+        "unitPrice": 45000,
+        "notes": "Maydalangan"
+      },
+      {
+        "materialId": "mat_qalampir_qizil",
+        "nameUz": "Qizil achchiq murch",
+        "nameRu": "Красный острый перец",
+        "grossWeight": 0.03,
+        "wastePercent": 0,
+        "netWeight": 0.03,
+        "unit": "kg",
+        "unitPrice": 60000,
+        "notes": "Achchiqlik berish"
+      }
+    ],
+    "operationalCosts": {
+      "laborPerKg": 2000,
+      "utilitiesPerKg": 600,
+      "depreciationPerKg": 200,
+      "transportPerKg": 500,
+      "overheadPerKg": 300
+    },
+    "packagingConfig": {
+      "defaultType": "container_500g",
+      "containerMaterialId": "mat_pack_500g",
+      "portionSizeKg": 0.5,
+      "containersNeeded": 20,
+      "includeLabel": true,
+      "labelMaterialId": "mat_label_brand",
+      "includeBag": true,
+      "bagMaterialId": "mat_bag_plastic"
+    }
+  },
+  {
+    "id": "recipe_fuju",
+    "code": "REC-05",
+    "nameUz": "Fuju / Spargel salati (Soya salati)",
+    "nameRu": "Салат из соевой спаржи (Фучжу)",
+    "category": "Dukkakli / Soya oqsili",
+    "batchOutputKg": 10,
+    "portionSizesKg": [
+      0.25,
+      0.5,
+      1
+    ],
+    "defaultMarkupPercent": 45,
+    "preparationTimeMin": 50,
+    "shelfLifeDays": 10,
+    "storageConditions": "+2°C...+5°C da 10 kun",
+    "descriptionUz": "Sovuq suvda ivitilgan mayin soya fujusi, sabzi somonchasi, sarimsoq, xushbo'y qizdirilgan yog' va kunjut bilan boyitilgan oqsilga boy salat.",
+    "descriptionRu": "Питательный восточный салат из соевой спаржи фучжу с морковью, чесноком, кунжутом и пряной масляной заправкой.",
+    "instructions": "Quruq fuju sovuq toza suvda 4-5 soat ivitiladi (issiq suvda ivitilsa ezilib ketadi). Ivigan fuju 4-5 sm uzunlikda qiya qilib kesiladi. Sabzi somoncha qiriladi, tuzlanadi. Piyoz yog'da qizartirilib, qizil qalampir solinadi va fuju ustiga quyiladi. Sarimsoq, so'ya sousi va boshqa ziravorlar qo'shilib 2-3 soat tindiriladi.",
+    "ingredients": [
+      {
+        "materialId": "mat_fuju",
+        "nameUz": "Fuju / Spargel (quruq)",
+        "nameRu": "Фучжу сухая",
+        "grossWeight": 3.8,
+        "wastePercent": 0,
+        "netWeight": 3.8,
+        "unit": "kg",
+        "unitPrice": 60000,
+        "notes": "Ivitilganda 2.5 barobar bo'kadi (~9.5 kg tayyor fuju)"
+      },
+      {
+        "materialId": "mat_sabzi",
+        "nameUz": "Sabzi (toza qizil)",
+        "nameRu": "Морковь свежая",
+        "grossWeight": 1.364,
+        "wastePercent": 12,
+        "netWeight": 1.2,
+        "unit": "kg",
+        "unitPrice": 4000,
+        "notes": "Somoncha qilib qirilgan"
+      },
+      {
+        "materialId": "mat_piyoz",
+        "nameUz": "Piyoz (bosh piyoz)",
+        "nameRu": "Лук репчатый",
+        "grossWeight": 0.667,
+        "wastePercent": 10,
+        "netWeight": 0.6,
+        "unit": "kg",
+        "unitPrice": 3000,
+        "notes": "Yog'da qovuriladi"
+      },
+      {
+        "materialId": "mat_sarimsoq",
+        "nameUz": "Sarimsoq (Chesnok)",
+        "nameRu": "Чеснок свежий",
+        "grossWeight": 0.197,
+        "wastePercent": 8.5,
+        "netWeight": 0.18,
+        "unit": "kg",
+        "unitPrice": 35000,
+        "notes": "Ezilgan"
+      },
+      {
+        "materialId": "mat_kinza",
+        "nameUz": "Kashnich ko'kati (Kinza)",
+        "nameRu": "Свежая кинза",
+        "grossWeight": 0.133,
+        "wastePercent": 10,
+        "netWeight": 0.12,
+        "unit": "kg",
+        "unitPrice": 15000,
+        "notes": "Mayda to'g'ralgan"
+      },
+      {
+        "materialId": "mat_yogi",
+        "nameUz": "O'simlik yog'i",
+        "nameRu": "Масло растительное",
+        "grossWeight": 0.6,
+        "wastePercent": 0,
+        "netWeight": 0.6,
+        "unit": "litr",
+        "unitPrice": 16000,
+        "notes": "Qaynoq quyish uchun"
+      },
+      {
+        "materialId": "mat_soya_sousi",
+        "nameUz": "So'ya sousi",
+        "nameRu": "Соевый соус",
+        "grossWeight": 0.25,
+        "wastePercent": 0,
+        "netWeight": 0.25,
+        "unit": "litr",
+        "unitPrice": 22000,
+        "notes": "Mazali ta'm"
+      },
+      {
+        "materialId": "mat_uksus70",
+        "nameUz": "Sirka kislotasi 70%",
+        "nameRu": "Уксусная эссенция 70%",
+        "grossWeight": 0.03,
+        "wastePercent": 0,
+        "netWeight": 0.03,
+        "unit": "litr",
+        "unitPrice": 12000,
+        "notes": "Yengil marinad"
+      },
+      {
+        "materialId": "mat_shakar",
+        "nameUz": "Shakar qumi",
+        "nameRu": "Сахар-песок",
+        "grossWeight": 0.1,
+        "wastePercent": 0,
+        "netWeight": 0.1,
+        "unit": "kg",
+        "unitPrice": 12000,
+        "notes": "Ta'm muvozanati"
+      },
+      {
+        "materialId": "mat_tuz",
+        "nameUz": "Osh tuzi",
+        "nameRu": "Соль пищевая",
+        "grossWeight": 0.14,
+        "wastePercent": 0,
+        "netWeight": 0.14,
+        "unit": "kg",
+        "unitPrice": 3000,
+        "notes": "Tuzlash"
+      },
+      {
+        "materialId": "mat_kashnich_urug",
+        "nameUz": "Kashnich urug'i (Koriandr)",
+        "nameRu": "Семена кориандра",
+        "grossWeight": 0.04,
+        "wastePercent": 0,
+        "netWeight": 0.04,
+        "unit": "kg",
+        "unitPrice": 45000,
+        "notes": "Tuyilgan koriandr"
+      },
+      {
+        "materialId": "mat_qalampir_qizil",
+        "nameUz": "Qizil achchiq murch",
+        "nameRu": "Красный острый перец",
+        "grossWeight": 0.03,
+        "wastePercent": 0,
+        "netWeight": 0.03,
+        "unit": "kg",
+        "unitPrice": 60000,
+        "notes": "Achchiqlik darajasi"
+      },
+      {
+        "materialId": "mat_kunjut",
+        "nameUz": "Kunjut urug'i (oq)",
+        "nameRu": "Семена кунжута белые",
+        "grossWeight": 0.05,
+        "wastePercent": 0,
+        "netWeight": 0.05,
+        "unit": "kg",
+        "unitPrice": 40000,
+        "notes": "Qovurilgan kunjut"
+      },
+      {
+        "materialId": "mat_ajinomoto",
+        "nameUz": "Glyutamat natriy (Ajinomoto)",
+        "nameRu": "Глутамат натрия",
+        "grossWeight": 0.015,
+        "wastePercent": 0,
+        "netWeight": 0.015,
+        "unit": "kg",
+        "unitPrice": 50000,
+        "notes": "Umami kuchaytirgich"
+      }
+    ],
+    "operationalCosts": {
+      "laborPerKg": 1800,
+      "utilitiesPerKg": 400,
+      "depreciationPerKg": 200,
+      "transportPerKg": 500,
+      "overheadPerKg": 300
+    },
+    "packagingConfig": {
+      "defaultType": "container_500g",
+      "containerMaterialId": "mat_pack_500g",
+      "portionSizeKg": 0.5,
+      "containersNeeded": 20,
+      "includeLabel": true,
+      "labelMaterialId": "mat_label_brand",
+      "includeBag": true,
+      "bagMaterialId": "mat_bag_plastic"
+    }
+  }
+];
 
   // =========================================================================
   // 6. AI BILIMLAR BAZASI (AI_KNOWLEDGE_BASE)
@@ -1473,10 +2751,6 @@
       return JSON.parse(JSON.stringify(obj));
     }
   };
-
-  // Boshlang'ich katalog ma'lumotlari: toza, bo'sh baza (foydalanuvchi o'zi kiritishi uchun)
-  DEFAULT_RECIPES = [];
-  DEFAULT_RAW_MATERIALS = [];
 
   // =========================================================================
   // 8. KATALOGNI TAYYORLASH VA EXPORT QILISH
