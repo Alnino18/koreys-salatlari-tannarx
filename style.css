@@ -1,0 +1,363 @@
+/* ==========================================================================
+   Koreys Salatlari Tannarx Kalkulyatori - Asosiy Uslublar (style.css)
+   ========================================================================== */
+
+/* Inter Shrifti va Asosiy Konfiguratsiya */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --primary-50: #eff6ff;
+  --primary-100: #dbeafe;
+  --primary-500: #3b82f6;
+  --primary-600: #2563eb;
+  --primary-700: #1d4ed8;
+  --amber-500: #f59e0b;
+  --emerald-600: #059669;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f8fafc;
+  color: #1e293b;
+}
+
+/* Chiroyli Skrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Raqamli kiritish maydonlari uchun stillar */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  opacity: 1;
+}
+
+/* Tab tugmalari va faol holatlar */
+.tab-btn {
+  transition: all 0.2s ease-in-out;
+  border-bottom: 2px solid transparent;
+}
+
+.tab-btn.active {
+  color: #2563eb;
+  border-bottom-color: #2563eb;
+  background-color: #eff6ff;
+  font-weight: 600;
+}
+
+.tab-btn:not(.active):hover {
+  color: #1d4ed8;
+  background-color: #f8fafc;
+}
+
+/* Tab panellarining ko'rinishi */
+.tab-content {
+  display: none;
+  animation: fadeIn 0.25s ease-in-out;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Kartochkalar uchun nozik soya va borderlar */
+.kpi-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+}
+
+/* Maxsus modallar */
+.modal-backdrop {
+  background-color: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+#modal-material {
+  z-index: 60 !important;
+}
+
+#modal-confirm {
+  z-index: 70 !important;
+}
+
+/* Jadval ustunlari va chiroyli chiziqlar */
+.custom-table th {
+  background-color: #f8fafc;
+  color: #475569;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.custom-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+.custom-table tr:hover td {
+  background-color: #f8fafc;
+}
+
+/* Narx kiritish inline input */
+.inline-edit-input {
+  transition: all 0.15s ease;
+}
+
+.inline-edit-input:focus {
+  background-color: #ffffff;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* Toast xabarnomalari */
+#toast-container {
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  animation: slideInRight 0.3s ease-out;
+  transition: all 0.3s ease;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ==========================================================================
+   Lokal AI Texnolog Drawer va Floating Widget Stillari
+   ========================================================================== */
+#ai-floating-btn {
+  z-index: 45;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+}
+
+#ai-floating-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+}
+
+.ai-pulse-dot {
+  animation: pulseGreen 2s infinite;
+}
+
+@keyframes pulseGreen {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 7px rgba(34, 197, 94, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+#ai-chat-drawer {
+  z-index: 50;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+}
+
+#ai-chat-drawer.hidden-drawer {
+  transform: translateY(120%) scale(0.95);
+  opacity: 0;
+  pointer-events: none;
+}
+
+#ai-chat-drawer:not(.hidden-drawer) {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Chat xabarlari qabariqlari (Bubbles) */
+.ai-bubble-bot {
+  background-color: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-bottom-left-radius: 4px;
+}
+
+.ai-bubble-user {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  border-bottom-right-radius: 4px;
+}
+
+.ai-chip-btn {
+  transition: all 0.15s ease-in-out;
+}
+
+.ai-chip-btn:hover {
+  transform: translateY(-1px);
+  background-color: #f8fafc;
+  border-color: #93c5fd;
+  color: #1d4ed8;
+}
+
+/* AI Retsept taklif kartasi */
+.ai-recipe-card {
+  background: linear-gradient(145deg, #ffffff, #f8fafc);
+  border: 1px solid #cbd5e1;
+  border-left: 4px solid #10b981;
+}
+
+/* Typing Dots Animatsiyasi */
+.typing-dot {
+  animation: typingBounce 1.4s infinite ease-in-out both;
+}
+
+.typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes typingBounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}
+
+/* Recipe Builder Modal kengligi va responsivligi */
+#modal-recipe-builder .modal-dialog {
+  max-height: 90vh;
+}
+
+/* ==========================================================================
+   Chop etish rejimi (Print / Texkarta uchun @media print)
+   ========================================================================== */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 10mm 10mm 12mm 10mm;
+  }
+
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    font-size: 11pt !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Barcha no-print elementlarni yashirish */
+  header,
+  nav,
+  #app-tabs-nav,
+  .no-print,
+  button,
+  .modal,
+  #modal-recipe-builder,
+  #ai-floating-btn,
+  #ai-chat-drawer,
+  #toast-container,
+  #tab-kalkulyator,
+  #tab-xomashyo,
+  #tab-grafika {
+    display: none !important;
+  }
+
+  /* Faqat Texkarta kontentini chiqarish */
+  #tab-texkarta {
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  #printable-texkarta {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: transparent !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  /* Bosmada jadvallarni aniq qora chegaralar bilan chiqarish */
+  .texkarta-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin-top: 10px !important;
+    margin-bottom: 12px !important;
+    font-size: 9.5pt !important;
+  }
+
+  .texkarta-table th,
+  .texkarta-table td {
+    border: 1px solid #111827 !important;
+    padding: 5px 8px !important;
+    color: #000000 !important;
+  }
+
+  .texkarta-table th {
+    background-color: #f3f4f6 !important;
+    font-weight: 700 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Sahifa uzilishlarini boshqarish */
+  tr, .print-avoid-break {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .texkarta-signatures {
+    margin-top: 25px !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Rangli badge-larni matn sifatida chop etish */
+  .badge-print {
+    border: 1px solid #000 !important;
+    background: transparent !important;
+    color: #000 !important;
+  }
+}
