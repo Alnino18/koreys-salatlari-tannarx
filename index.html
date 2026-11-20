@@ -337,25 +337,33 @@
             </div>
           </div>
 
-          <!-- Xomashyolar jadvali -->
-          <div class="overflow-x-auto flex-1">
-            <table class="w-full text-left border-collapse custom-table text-xs sm:text-sm">
-              <thead>
-                <tr class="border-b border-slate-200 bg-slate-50 text-slate-600 font-bold text-xs uppercase">
-                  <th class="py-3 px-3 w-10 text-center">#</th>
-                  <th class="py-3 px-3">Xomashyo nomi</th>
-                  <th class="py-3 px-2 w-16 text-center">Birlik</th>
-                  <th class="py-3 px-2 w-24 text-right">Netto</th>
-                  <th class="py-3 px-2 w-20 text-center">Chiqindi %</th>
-                  <th class="py-3 px-2 w-24 text-right">Narxi (UZS)</th>
-                  <th class="py-3 px-3 w-28 text-right">Jami Summa</th>
-                  <th class="py-3 px-2 w-12 text-center"></th>
-                </tr>
-              </thead>
-              <tbody id="recipe-ingredients-body" class="divide-y divide-slate-100 text-slate-700">
-                <!-- Javascript orqali qatorlar render qilinadi -->
-              </tbody>
-            </table>
+          <!-- Xomashyolar ro'yxati konteyneri -->
+          <div id="recipe-ingredients-container" class="flex-1 flex flex-col min-h-0">
+            <!-- Desktop / Planshet uchun ixcham jadval (To'liq sig'adi, gorizontal scroll shart emas) -->
+            <div class="hidden sm:block overflow-x-auto flex-1">
+              <table class="w-full text-left border-collapse custom-table text-xs sm:text-sm" id="recipe-ingredients-table">
+                <thead>
+                  <tr class="border-b border-slate-200 bg-slate-50 text-slate-600 font-bold text-xs uppercase">
+                    <th class="py-2.5 px-2 w-8 text-center">#</th>
+                    <th class="py-2.5 px-3">Xomashyo nomi</th>
+                    <th class="py-2.5 px-1.5 w-12 text-center">Birlik</th>
+                    <th class="py-2.5 px-1.5 w-20 text-right">Netto</th>
+                    <th class="py-2.5 px-1.5 w-16 text-center">Chiqindi %</th>
+                    <th class="py-2.5 px-2 w-24 text-right">Narxi</th>
+                    <th class="py-2.5 px-2.5 w-28 text-right text-emerald-700">Jami Summa</th>
+                    <th class="py-2.5 px-1.5 w-10 text-center"></th>
+                  </tr>
+                </thead>
+                <tbody id="recipe-ingredients-body" class="divide-y divide-slate-100 text-slate-700">
+                  <!-- Javascript orqali qatorlar render qilinadi -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Mobil ekranlar uchun maxsus qulay kartochkalar (Jami summa va O'chirish doim ko'rinib turadi!) -->
+            <div class="sm:hidden flex-1 p-3 space-y-2.5 bg-slate-50/50" id="recipe-ingredients-mobile-cards">
+              <!-- Javascript orqali mobil kartochkalar render qilinadi -->
+            </div>
           </div>
 
           <!-- Jadval pastki yakunlovchi qismi (Footer summary) -->

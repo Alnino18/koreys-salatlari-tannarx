@@ -137,6 +137,25 @@ input[type=number]::-webkit-outer-spin-button {
   background-color: #f8fafc;
 }
 
+/* Retsept tarkibi jadvali (ixcham va to'liq sig'adigan qilib moslashtirish) */
+#recipe-ingredients-table th {
+  padding: 0.625rem 0.4rem;
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+#recipe-ingredients-table td {
+  padding: 0.45rem 0.4rem;
+}
+
+/* Mobil kartochkalar animatsiyasi va qulayligi */
+.ingredient-mobile-card {
+  transition: all 0.2s ease-in-out;
+}
+.ingredient-mobile-card:active {
+  background-color: #f8fafc;
+}
+
 /* Narx kiritish inline input */
 .inline-edit-input {
   transition: all 0.15s ease;

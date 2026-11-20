@@ -653,61 +653,133 @@
 
   function renderIngredientsTable(calc) {
     const tbody = document.getElementById('recipe-ingredients-body');
-    if (!tbody) return;
+    const mobileCards = document.getElementById('recipe-ingredients-mobile-cards');
+    if (!tbody && !mobileCards) return;
 
-    tbody.innerHTML = '';
+    if (tbody) tbody.innerHTML = '';
+    if (mobileCards) mobileCards.innerHTML = '';
 
     if (!calc || !calc.ingredients || calc.ingredients.length === 0) {
-      tbody.innerHTML = `
-        <tr>
-          <td colspan="8" class="py-12 text-center text-slate-400">
+      if (tbody) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" class="py-12 text-center text-slate-400">
+              <i class="fa-solid fa-utensils text-2xl mb-2 text-slate-300 block"></i>
+              Hozircha hech qanday salat yoki masalliq mavjud emas.<br>
+              <span class="text-xs text-slate-500 font-medium">Boshlash uchun yuqoridagi <strong>"+ Yangi retsept"</strong> tugmasini bosing!</span>
+            </td>
+          </tr>
+        `;
+      }
+      if (mobileCards) {
+        mobileCards.innerHTML = `
+          <div class="py-10 px-4 text-center text-slate-400 bg-white rounded-xl border border-slate-200">
             <i class="fa-solid fa-utensils text-2xl mb-2 text-slate-300 block"></i>
             Hozircha hech qanday salat yoki masalliq mavjud emas.<br>
             <span class="text-xs text-slate-500 font-medium">Boshlash uchun yuqoridagi <strong>"+ Yangi retsept"</strong> tugmasini bosing!</span>
-          </td>
-        </tr>
-      `;
+          </div>
+        `;
+      }
       return;
     }
 
     calc.ingredients.forEach((ing, idx) => {
-      const tr = document.createElement('tr');
-      tr.className = 'hover:bg-slate-50 transition border-b border-slate-100';
+      // 1. Desktop / Planshet jadval qatori
+      if (tbody) {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50 transition border-b border-slate-100';
 
-      tr.innerHTML = `
-        <td class="py-2.5 px-3 text-center text-xs font-semibold text-slate-400">${idx + 1}</td>
-        <td class="py-2.5 px-3">
-          <div class="font-bold text-slate-800 text-xs sm:text-sm">${escapeHtml(ing.nameUz)}</div>
-          ${ing.notes ? `<div class="text-[11px] text-slate-400 truncate max-w-xs">${escapeHtml(ing.notes)}</div>` : ''}
-        </td>
-        <td class="py-2.5 px-2 text-center text-xs text-slate-500 font-medium">${escapeHtml(ing.unit)}</td>
-        <td class="py-2.5 px-2 text-right">
-          <input type="number" step="0.01" min="0.001" value="${ing.netWeight}" 
-            data-ing-idx="${idx}" data-field="netWeight"
-            class="ing-input-edit w-20 px-2 py-1 text-right text-xs font-bold text-slate-800 border border-slate-200 rounded-lg bg-white focus:ring-1 focus:ring-primary-500">
-        </td>
-        <td class="py-2.5 px-2 text-center">
-          <div class="flex items-center justify-center space-x-1">
-            <input type="number" step="0.5" min="0" max="95" value="${ing.wastePercent}" 
-              data-ing-idx="${idx}" data-field="wastePercent"
-              class="ing-input-edit w-14 px-1 py-1 text-center text-xs font-semibold text-amber-700 border border-amber-200 rounded-lg bg-amber-50/50 focus:ring-1 focus:ring-amber-500">
-            <span class="text-xs text-slate-400">%</span>
+        tr.innerHTML = `
+          <td class="py-2.5 px-2 text-center text-xs font-semibold text-slate-400">${idx + 1}</td>
+          <td class="py-2.5 px-3">
+            <div class="font-bold text-slate-800 text-xs sm:text-sm">${escapeHtml(ing.nameUz)}</div>
+            ${ing.notes ? `<div class="text-[11px] text-slate-400 truncate max-w-[180px]">${escapeHtml(ing.notes)}</div>` : ''}
+          </td>
+          <td class="py-2.5 px-1.5 text-center text-xs text-slate-500 font-medium">${escapeHtml(ing.unit)}</td>
+          <td class="py-2.5 px-1.5 text-right">
+            <input type="number" step="0.01" min="0.001" value="${ing.netWeight}" 
+              data-ing-idx="${idx}" data-field="netWeight"
+              class="ing-input-edit w-20 px-1.5 py-1 text-right text-xs font-bold text-slate-800 border border-slate-200 rounded-lg bg-white focus:ring-1 focus:ring-primary-500">
+          </td>
+          <td class="py-2.5 px-1.5 text-center">
+            <div class="flex items-center justify-center space-x-1">
+              <input type="number" step="0.5" min="0" max="95" value="${ing.wastePercent}" 
+                data-ing-idx="${idx}" data-field="wastePercent"
+                class="ing-input-edit w-14 px-1 py-1 text-center text-xs font-semibold text-amber-700 border border-amber-200 rounded-lg bg-amber-50/50 focus:ring-1 focus:ring-amber-500">
+              <span class="text-[11px] text-slate-400">%</span>
+            </div>
+          </td>
+          <td class="py-2.5 px-2 text-right text-xs text-slate-600 whitespace-nowrap">
+            ${formatMoney(ing.unitPrice)}
+          </td>
+          <td class="ing-cost-cell py-2.5 px-2.5 text-right text-xs font-extrabold text-emerald-600 whitespace-nowrap" data-ing-idx="${idx}">
+            ${formatMoney(ing.cost)}
+          </td>
+          <td class="py-2.5 px-1.5 text-center">
+            <button type="button" class="btn-delete-ingredient text-slate-400 hover:text-red-500 hover:bg-red-50 p-1.5 rounded-lg transition" data-ing-idx="${idx}" title="O'chirish">
+              <i class="fa-regular fa-trash-can text-sm"></i>
+            </button>
+          </td>
+        `;
+
+        tbody.appendChild(tr);
+      }
+
+      // 2. Mobil ekranlar uchun maxsus kartochka (Doim ko'rinib turadigan Jami Summa va O'chirish)
+      if (mobileCards) {
+        const card = document.createElement('div');
+        card.className = 'ingredient-mobile-card bg-white rounded-xl p-3 border border-slate-200 shadow-xs space-y-2.5';
+        card.setAttribute('data-ing-idx', idx);
+
+        card.innerHTML = `
+          <!-- Yuqori qator: Nomi, raqami va O'chirish ikonkasi -->
+          <div class="flex items-start justify-between gap-2">
+            <div class="flex items-center space-x-2 min-w-0">
+              <span class="w-6 h-6 rounded-md bg-slate-100 text-slate-600 font-bold text-xs flex items-center justify-center shrink-0">${idx + 1}</span>
+              <div class="min-w-0">
+                <h4 class="font-bold text-slate-900 text-xs sm:text-sm leading-snug truncate">${escapeHtml(ing.nameUz)}</h4>
+                ${ing.notes ? `<p class="text-[10px] text-slate-400 truncate">${escapeHtml(ing.notes)}</p>` : ''}
+              </div>
+            </div>
+            <button type="button" class="btn-delete-ingredient text-red-500 hover:text-red-700 bg-red-50 hover:bg-red-100 active:scale-95 p-2 rounded-lg transition shrink-0 flex items-center justify-center min-w-[36px] min-h-[36px]" data-ing-idx="${idx}" title="O'chirish">
+              <i class="fa-regular fa-trash-can text-sm"></i>
+            </button>
           </div>
-        </td>
-        <td class="py-2.5 px-2 text-right text-xs text-slate-600 whitespace-nowrap">
-          ${formatMoney(ing.unitPrice)}
-        </td>
-        <td class="ing-cost-cell py-2.5 px-3 text-right text-xs font-extrabold text-primary-600 whitespace-nowrap">
-          ${formatMoney(ing.cost)}
-        </td>
-        <td class="py-2.5 px-2 text-center">
-          <button type="button" class="btn-delete-ingredient text-slate-300 hover:text-red-500 transition p-1" data-ing-idx="${idx}" title="O'chirish">
-            <i class="fa-regular fa-trash-can"></i>
-          </button>
-        </td>
-      `;
 
-      tbody.appendChild(tr);
+          <!-- O'rta qator: Netto va Chiqindi % kiritish -->
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div class="bg-slate-50 p-2 rounded-lg border border-slate-200">
+              <label class="block text-[11px] font-medium text-slate-500 mb-1">Netto (${escapeHtml(ing.unit)})</label>
+              <input type="number" step="0.01" min="0.001" value="${ing.netWeight}" 
+                data-ing-idx="${idx}" data-field="netWeight"
+                class="ing-input-edit w-full px-2 py-1.5 text-right font-bold text-slate-900 border border-slate-300 rounded-md bg-white focus:ring-1 focus:ring-primary-500 text-xs">
+            </div>
+            <div class="bg-amber-50/50 p-2 rounded-lg border border-amber-200">
+              <label class="block text-[11px] font-medium text-amber-800 mb-1">Chiqindi %</label>
+              <div class="flex items-center space-x-1">
+                <input type="number" step="0.5" min="0" max="95" value="${ing.wastePercent}" 
+                  data-ing-idx="${idx}" data-field="wastePercent"
+                  class="ing-input-edit w-full px-2 py-1.5 text-center font-bold text-amber-900 border border-amber-300 rounded-md bg-white focus:ring-1 focus:ring-amber-500 text-xs">
+                <span class="text-xs font-semibold text-amber-700">%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quyi qator: Birlik narxi va JAMI SUMMA (Doim ko'rinadi, gorizontal surish shart emas!) -->
+          <div class="flex items-center justify-between pt-1 border-t border-slate-100 text-xs">
+            <div class="text-slate-500">
+              <span class="text-[11px]">1 ${escapeHtml(ing.unit)} narxi:</span>
+              <span class="font-semibold text-slate-700 ml-1">${formatMoney(ing.unitPrice)}</span>
+            </div>
+            <div class="text-right">
+              <span class="text-[11px] text-slate-500 mr-1">Jami:</span>
+              <span class="ing-cost-cell font-extrabold text-emerald-600 text-sm" data-ing-idx="${idx}">${formatMoney(ing.cost)}</span>
+            </div>
+          </div>
+        `;
+
+        mobileCards.appendChild(card);
+      }
     });
   }
 
@@ -2195,9 +2267,9 @@
     }
 
     // 5. Retsept ichidagi ingredientlarni jonli tahrirlash (Netto va Chiqindi %)
-    const ingredientsBody = document.getElementById('recipe-ingredients-body');
-    if (ingredientsBody) {
-      ingredientsBody.addEventListener('input', (e) => {
+    const ingredientsContainer = document.getElementById('recipe-ingredients-container') || document.getElementById('recipe-ingredients-body');
+    if (ingredientsContainer) {
+      ingredientsContainer.addEventListener('input', (e) => {
         const input = e.target.closest('.ing-input-edit');
         if (!input) return;
 
@@ -2228,11 +2300,13 @@
         const calc = updateActiveCalculations();
         renderKPIsAndSummary(calc);
 
-        const row = input.closest('tr');
-        if (row && calc.ingredients[idx]) {
+        // Ham desktop jadvalda, ham mobil kartochkada Jami Summani bir vaqtda jonli yangilash
+        if (calc.ingredients[idx]) {
           const ingCalc = calc.ingredients[idx];
-          const costCell = row.querySelector('.ing-cost-cell') || row.cells[6];
-          if (costCell) costCell.textContent = formatMoney(ingCalc.cost);
+          const costCells = document.querySelectorAll(`.ing-cost-cell[data-ing-idx="${idx}"]`);
+          costCells.forEach((cell) => {
+            cell.textContent = formatMoney(ingCalc.cost);
+          });
         }
 
         const grafikaTab = document.getElementById('tab-grafika');
@@ -2241,8 +2315,8 @@
         }
       });
 
-      // Ingredientni o'chirish
-      ingredientsBody.addEventListener('click', (e) => {
+      // Ingredientni o'chirish (Desktop va Mobil uchun delegated click)
+      ingredientsContainer.addEventListener('click', (e) => {
         const btn = e.target.closest('.btn-delete-ingredient');
         if (!btn) return;
 

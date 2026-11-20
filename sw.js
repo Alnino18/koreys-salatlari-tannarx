@@ -3,7 +3,7 @@
  * Offline rejim va PWA keshini boshqarish
  */
 
-const CACHE_NAME = 'salat-calc-pwa-v3.2-octane-3d';
+const CACHE_NAME = 'salat-calc-pwa-v3.3-responsive-layout';
 
 const PRECACHE_ASSETS = [
   './',
