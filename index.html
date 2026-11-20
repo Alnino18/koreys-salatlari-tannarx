@@ -6,16 +6,16 @@
   <title>Koreys Salatlari Tannarx Kalkulyatori | Себестоимость корейских салатов</title>
   
   <!-- PWA & Mobile Meta Tags -->
-  <link rel="manifest" href="manifest.json">
-  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
-  <link rel="shortcut icon" href="icons/favicon.png">
+  <link rel="manifest" href="manifest.json?v=3.2">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon.png?v=3.2">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png?v=3.2">
+  <link rel="shortcut icon" href="icons/favicon.png?v=3.2">
   <meta name="theme-color" content="#0f172a">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Salat Tannarxi">
-  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png?v=3.2">
   
   <!-- Google Fonts: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -76,7 +76,7 @@
         <div class="flex items-center space-x-2 sm:space-x-3 min-w-0">
           <div class="relative group shrink-0">
             <div class="absolute -inset-1 bg-gradient-to-r from-emerald-500 via-amber-500 to-emerald-600 rounded-2xl blur-xs opacity-70 group-hover:opacity-100 transition duration-300"></div>
-            <img src="icons/icon-192.png" alt="Salat Tannarxi Logo" class="relative w-9 h-9 sm:w-11 sm:h-11 rounded-xl shadow-lg object-cover ring-1 ring-white/30 transform group-hover:scale-105 transition-all duration-200">
+            <img src="icons/icon-192.png?v=3.2" alt="Salat Tannarxi Logo" class="relative w-9 h-9 sm:w-11 sm:h-11 rounded-xl shadow-lg object-cover ring-1 ring-white/30 transform group-hover:scale-105 transition-all duration-200">
           </div>
           <div class="min-w-0">
             <div class="flex items-center space-x-1.5 sm:space-x-2">
@@ -1470,8 +1470,11 @@
     // PWA Service Worker ro'yxatdan o'tkazish
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
-          .then((reg) => console.log('PWA Service Worker faol:', reg.scope))
+        navigator.serviceWorker.register('./sw.js?v=3.2')
+          .then((reg) => {
+            console.log('PWA Service Worker faol:', reg.scope);
+            reg.update();
+          })
           .catch((err) => console.warn('PWA SW xatolik:', err));
       });
     }

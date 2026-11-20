@@ -3,7 +3,7 @@
  * Offline rejim va PWA keshini boshqarish
  */
 
-const CACHE_NAME = 'salat-calc-pwa-v3.0-premium-icon';
+const CACHE_NAME = 'salat-calc-pwa-v3.2-octane-3d';
 
 const PRECACHE_ASSETS = [
   './',
@@ -17,6 +17,7 @@ const PRECACHE_ASSETS = [
   './icons/icon-maskable.png',
   './icons/apple-touch-icon.png',
   './icons/favicon.png',
+  './icons/logo-round.png',
   './icons/app-logo-master.png'
 ];
 
@@ -48,48 +49,46 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// 3. So'rovlarni tutish (Fetch - Stale-While-Revalidate & Cache Fallback)
+// 3. So'rovlarni tutish (Fetch - Network-First for HTML, Stale-While-Revalidate for Assets)
 self.addEventListener('fetch', (event) => {
   const request = event.request;
 
-  // Faqat HTTP/HTTPS va GET so'rovlarni keshlaymiz (chrome-extension:// va boshqa sxemalarni o'tkazib yuboramiz)
+  // Faqat HTTP/HTTPS va GET so'rovlarni keshlaymiz
   if (request.method !== 'GET') return;
   if (!request.url.startsWith('http://') && !request.url.startsWith('https://')) return;
 
-  event.respondWith(
-    caches.match(request, { ignoreSearch: true }).then((cachedResponse) => {
-      if (cachedResponse) {
-        // Fon orqali keshni yangilash (Stale-while-revalidate)
-        fetch(request).then((networkResponse) => {
-          if (networkResponse && (networkResponse.status === 200 || networkResponse.type === 'opaque')) {
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(request, networkResponse.clone());
-            });
+  // HTML sahifa yuklashda (Navigation) -> Network-First (eng yangi versiyani olish, oflaynda esa keshga qaytish)
+  const isHtmlRequest = request.mode === 'navigate' || (request.headers.get('accept') && request.headers.get('accept').includes('text/html'));
+  if (isHtmlRequest) {
+    event.respondWith(
+      fetch(request)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const responseClone = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, responseClone));
           }
-        }).catch(() => {
-          // Oflayn holatda xatolik e'tiborga olinmaydi
-        });
-        return cachedResponse;
-      }
-
-      // Keshda bo'lmasa, tarmoqdan yuklab keshga saqlash (Opaque CDN javoblarini ham qabul qiladi)
-      return fetch(request).then((networkResponse) => {
-        if (!networkResponse || (networkResponse.status !== 200 && networkResponse.type !== 'opaque') || networkResponse.type === 'error') {
           return networkResponse;
+        })
+        .catch(() => caches.match('./index.html', { ignoreSearch: true }))
+    );
+    return;
+  }
+
+  // Statik fayllar (rasm, css, js) -> Stale-While-Revalidate
+  event.respondWith(
+    caches.match(request, { ignoreSearch: false }).then((cachedResponse) => {
+      const fetchPromise = fetch(request).then((networkResponse) => {
+        if (networkResponse && (networkResponse.status === 200 || networkResponse.type === 'opaque')) {
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(request, networkResponse.clone());
+          });
         }
-
-        const responseClone = networkResponse.clone();
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(request, responseClone);
-        });
-
         return networkResponse;
       }).catch(() => {
-        // Agar HTML so'rov bo'lsa va tarmoq bo'lmasa, keshdagi index.html ni qaytarish
-        if (request.headers.get('accept') && request.headers.get('accept').includes('text/html')) {
-          return caches.match('./index.html', { ignoreSearch: true });
-        }
+        // Oflayn holatda xatolik e'tiborga olinmaydi
       });
+
+      return cachedResponse || fetchPromise;
     })
   );
 });
