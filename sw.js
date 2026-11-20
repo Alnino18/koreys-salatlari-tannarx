@@ -3,7 +3,7 @@
  * Offline rejim va PWA keshini boshqarish
  */
 
-const CACHE_NAME = 'salat-calc-pwa-v2.0';
+const CACHE_NAME = 'salat-calc-pwa-v3.0-premium-icon';
 
 const PRECACHE_ASSETS = [
   './',
@@ -15,7 +15,9 @@ const PRECACHE_ASSETS = [
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/icon-maskable.png',
-  './icons/apple-touch-icon.png'
+  './icons/apple-touch-icon.png',
+  './icons/favicon.png',
+  './icons/app-logo-master.png'
 ];
 
 // 1. O'rnatish (Install)
